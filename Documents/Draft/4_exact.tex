@@ -1,0 +1,213 @@
+%!TEX root = ./0_main.tex
+\section{Exact Formulations} \label{sec: exact}
+
+    Let \(x_{s,c}\) be a binary variable equal to 1 if the clearinghouse assigns student \(s \in \cS\) to school \(c \in \cC \cup \lrl{\emptyset}\), and 0 otherwise. Then, the set of matchings can be represented as
+    \[
+    \cP = \lrl{\mathbf{x} \in \lrl{0,1}^{\cV} \;:\; \text{for each } g\in \cG, \; \sum_{c: (s,c) \in \cV^{g}} x_{s,c} = 1 \text{ for all } s\in \cS, \; \sum_{s: (s,c) \in \cV^{g}} x_{s,c} \leq q_{c,g} \text{ for all } c\in \cC}.
+    \]
+    The first condition captures that student \(s\) is assigned to one school in the set \(\cC \cup \lrl{\emptyset}\), while the second condition implies that each school \(c\) receives at most \(q_{c,g}\) students.
+    In addition, let \(r_{s,c}\) be the position of school \(c \in \cC\) in the preferences of student \(s \in \cS\), and let \(r_{s,\emptyset}\) be a parameter that captures the cost of having unassigned students. As \cite{agoston2016integer} and \cite{bobbio22} discuss, the problem of finding the student-optimal stable assignment in the standard setting (e.g., with no dynamic priorities) is equivalent to solving the following integer problem:
+    \begin{subequations}\label{eq: standard formulation for student optimal stable matching}
+    \begin{alignat}{2}
+      \max_{\mathbf{x}\in \cP} \quad & \quad \sum_{(s,c)\in \cV} r_{s,c}\cdot x_{s,c} \label{eq: objective sosm} \\
+      st. \quad & \quad q_{c,g(s)} \lrp{1- \sum_{c'\succeq_s c} x_{s,c'}} \leq \sum_{\substack{s' \in S^g(s):\\s'\succ_c s}} x_{s', c},\; \forall (s,c) \in \cV \label{eq: statibility for sosm}
+    \end{alignat}
+    \end{subequations}
+    where the set of constraints~\ref{eq: statibility for sosm}, first introduced in~\cite{baiou2000stable}, ensure that the assignment is stable. Note that this problem is separable by grade level, and thus can be efficiently solved applying DA to each grade separately. However, as we will discuss next, considering dynamic priorities introduce dependencies between grade levels, and thus the problem is not separable anymore.
+
+    \subsection{Base formulation}
+        % Given a family \(f\in \cF\) with \(\lra{f} >1\), for any \(s,s'\in f\) let \(y_{s,s',c} :=   x_{s,c}\cdot x_{s',c}\). In words, \(y_{s,s',c}\) is equal to 1 if siblings \(s\) and \(s'\) are assigned to school \(c\), and 0 otherwise.
+        % To linearly incorporate these variables into our formulation, we consider the McCormick expansion given by the set
+        % \[
+        % \cM(\mathbf{x}) = \lrl{\mathbf{y} \in [0,1]^{\cS\times \cV} \;:\; y_{s,s',c} \leq x_{s,c}, \; y_{s,s',c} \leq x_{s',c}, \; y_{s,s',c} \geq x_{s,c} + x_{s',c} - 1,\; s,s' \in f, \; f\in \cF, \; c\in \cC }.
+        % \]
+        Given a family \(f\in \cF\) with \(\lra{f} >1\), for any \(s,s'\in f\) with \(s\succ_c s'\), let \(y_{s,s',c}\) be a binary variable equal to 1 if \(s\) gives siblings' priority to \(s'\), and 0 otherwise. In words, \(y_{s,s',c}\) is equal to 1 if siblings \(s\) and \(s'\) are assigned to school \(c\) and \(s\) (i.e., \(x_{s,c} = x_{s',c}=1\)) and \(s\) has the highest priority among all siblings of \(s'\) assigned to school \(c\), and 0 otherwise.
+
+        To linearly incorporate these variables into our formulation, we consider the set
+        \[
+        \begin{split}
+        \cM(\mathbf{x}) &= \left\{ \mathbf{y} \in [0,1]^{\cS\times \cV} \;:\;  y_{s,s',c} \leq x_{s,c}, \; y_{s,s',c} \leq x_{s',c},
+                                  \sum_{s''\in f(s'): s''\succ s'} y_{s'',s',c} \leq 1, \right. \\
+          &\hspace{3cm} \left. \; \sum_{\substack{s''\in f:s'' \succeq_c s}} y_{s'',s',c} \geq x_{s,c} + x_{s',c} - 1,\; s,s' \in f \text{ with } s\succ_c s', \; f\in \cF, \; c\in \cC  \right\}
+        \end{split}
+        \]
+        \nacho{Explain why this set correctly defines \(y\).}
+
+
+        \subsubsection{Independent case.}
+            Based on the set of feasible assignments \(\mathbf{x}\in \cP\) and the joint assignment variables \(\mathbf{y} \in \cM(\mathbf{x})\), we can formulate Problem~\ref{problem_def} by adapting~(\ref{eq: standard formulation for student optimal stable matching}) to incorporate the siblings priority.
+            % \begin{subequations}\label{eq: standard formulation with siblings}
+            % \begin{alignat}{2}
+            %   \min_{\mathbf{x}\in \cP, \mathbf{y} \in \cM(\mathbf{x})} \quad & \quad \sum_{(s,c)\in \cV} r_{s,c}\cdot x_{s,c}  \\
+            %   st. \quad & \quad q_{c,g(s)} \lrp{1- \sum_{c'\succeq_s c} x_{s,c'}} \leq \sum_{\substack{s'\in \cS^{g(s)}:\\ s'\succ_c s}} x_{s', c}
+            %   + \sum_{\substack{(s',s'') \in \cS\times \cS^{g(s)} :\\ s'\succ_c s,\; s''\prec_c s }}  y_{s',s'',c}\; ,\; \forall (s,c) \in \cV, \; \lra{f(s)}=1 \label{eq: stability for no siblings} \\
+            %   & \quad q_{c,g(s)} \lrp{1- \sum_{c'\succeq_s c} x_{s,c'}} \leq \sum_{\substack{s'\in \cS^{g(s)}:\\ s'\succ_c s}} x_{s', c} \;,\; \forall (s,c) \in \cV, \; \lra{f(s)} > 1  \label{eq: stability for siblings}
+            % \end{alignat}
+            % \end{subequations}
+            % The sets of constraints~(\ref{eq: stability for no siblings}) and~(\ref{eq: stability for siblings}) adapt the stability constraints~(\ref{eq: statibility for sosm}) to incorporate dynamic priorities. Specifically,~(\ref{eq: stability for no siblings}) captures the case for students with no siblings. In that case, a student \(s\) may not get assigned to school \(c\) (or better) if there are at least \(q_{c,g(s)}\) students with (i) higher priority assigned to \(c\) (first term on the right-hand side) or (ii) lower priority than \(s\) but that have a sibling assigned to the school, and thus obtain siblings' priority.\nacho{Clarify the cases where the siblings is in the same grade or in a different one.} On the other hand,~(\ref{eq: stability for siblings}) captures the case of students that have at least one sibling. In this case, the same constraint as in~(\ref{eq: standard formulation for student optimal stable matching}) applies. \nacho{Remember to update the objective accordingly to force siblings assigned together in case of multiple optimal solutions.}
+            % \begin{subequations}\label{eq: independent formulation with siblings}
+            % \begin{alignat}{2}
+            %   \min_{\mathbf{x}\in \cP, \mathbf{y} \in \cM(\mathbf{x})} \quad & \quad \sum_{(s,c)\in \cV} r_{s,c}\cdot x_{s,c}  \\
+            %   st. \quad & \quad q_{c,g(s)} \lrp{1- \sum_{c'\succeq_s c} x_{s,c'}} \leq \sum_{\substack{s'\in \cS^{g(s)}:\\ s'\succ_c s}} x_{s', c}
+            %   + \sum_{\substack{(s',s'') \in \cS\times \cS^{g(s)} :\\ s'\succ_c s,\; s''\prec_c s }}  y_{s',s'',c}\; ,\; \forall (s,c) \in \cV, \label{eq: independent stability for no siblings} \\
+            %   & \quad x_{s,c} + \lrp{1-\sum_{c'\succeq_{s'} c} x_{s',c'} } \leq 2-\sum_{\substack{k\in f(s''): \\ k \succ_c s''}} y_{k, s'',c}, \; \forall s''\in \cS, s,s' \in f, f\in \cF \text{ with } s\succ_c s'\succ_c s'', c\in \cC \label{eq: independent stability for siblings} \\
+            %   & \quad x_{s,c} + \lrp{1-\sum_{c'\succeq_{s'} c} x_{s',c'} } \leq 2 - x_{s'',c} + \sum_{\substack{k\in f(s''): \\ k \succ_c s''}} y_{k, s'',c}, \; \forall s''\in \cS, s,s' \in f, f\in \cF \text{ with } s\succ_c s'', c\in \cC \label{eq: independent stability for siblings v2}
+            % \end{alignat}
+            % \end{subequations}
+            {\small
+            \begin{subequations}\label{eq: independent formulation with siblings}
+            \begin{alignat}{2}
+              \min_{\mathbf{x}\in \cP, \mathbf{y} \in \cM(\mathbf{x})} \quad & \quad \sum_{(s,c)\in \cV} r_{s,c}\cdot x_{s,c}  \\
+              st. \quad & \quad q_{c,g(s)} \lrp{1- \sum_{c'\succeq_s c} x_{s,c'}} \leq \sum_{\substack{s'\in \cS^{g(s)}:\\ s'\succ_c s}} x_{s', c}
+              + \sum_{\substack{(s',s'') \in \cS^{g(s)\times f(s')} :\\ s' \prec_c s }}  y_{s'',s',c}\; ,\; \forall (s,c) \in \cV, \label{eq: constraint stability independent} \\
+              % & \quad x_{s,c} + \lrp{1-\sum_{c'\succeq_{s'} c} x_{s',c'} } \leq 2-\sum_{\substack{k\in f(s''): \\ k \succ_c s''}} y_{k, s'',c}, \; \forall s''\in \cS, s,s' \in f, f\in \cF \text{ with } s\succ_c s'\succ_c s'', c\in \cC \label{eq: independent stability for siblings} \\
+              & \quad \lrp{1-\sum_{c'\succeq_{s} c} x_{s,c'} } + x_{s',c} \leq 2 - x_{l,c}
+              + \sum_{k\in f(l)} y_{k, l,c}\cdot \ind{l \succ_c s}, \; \forall c\in \cC, \lrl{s,s'} \subseteq f\in \cF, l\in \cS^{g(s)} \label{eq: tie breaking dynamic independent} \\
+              & \quad \lrp{1-\sum_{c'\succeq_{s} c} x_{s,c'} } \leq 1 - x_{l,c}\cdot \ind{s \succ_c l}
+              + \sum_{k\in f(l)} y_{k, l,c}\cdot \ind{s \succ_c l}, \; \forall c\in \cC, s, l\in \cS^{g(s)} \label{eq: respect priority independent}
+            \end{alignat}
+            \end{subequations}
+            }
+
+            The sets of constraints~(\ref{eq: constraint stability independent}) adapt the stability constraints~(\ref{eq: statibility for sosm}) to incorporate dynamic priorities and eliminate independent justified-envy. Specifically, a student \(s\) may not get assigned to school \(c\) (or better) if there are at least \(q_{c,g(s)}\) students with (i) higher priority assigned to \(c\) (first term on the right-hand side) or (ii) lower priority than \(s\) but that have a sibling assigned to the school, and thus obtain siblings' priority.
+            The sets of constraints~(\ref{eq: tie breaking dynamic independent}) guarantee that ties among students with dynamic priority are broken according to their priorities, thus satisfying independent justified-envy. On the one hand, if student \(s\) has no sibling assigned to \(c\),
+            then the left-hand side of~(\ref{eq: tie breaking among dynamic priorities for independent}) is at most one, and thus the constraint is always satisfied. On the other hand, if \(s\in f(s')\) is assigned to school \(c\), \(s'\) gets dynamic priority. As a result:
+            \begin{itemize}
+              \item No student \(l\in \cS^(g(s'))\) without dynamic priority can be assigned to \(c\) unless \(s'\) is assigned to \(c\) or better. This is captured by the fact that, if \(l\) has no dynamic priority, then the summation on the right-hand size is equal to zero, and thus \(x_{l,c} = 0\) if \(x_{s,c} = 1\) and \(\sum_{c'\succeq_s c} x_{s,c'} = 0\).
+              \item Student \(s'\) may not get assigned to \(c\) or better only if student \(l\) has dynamic priority and is preferred by school \(c\).
+            \end{itemize}
+            Finally, the set of constraints~(\ref{eq: respect priority independent}) guarantees that priorities are respected among students with no dynamic priority. If student \(s\) is not assigned to \(c\) or better, the left-hand side is equal to 1, and thus a student less preferred \(l\) such that \(s \succ_c l\) can only be assigned to \(c\) if they have dynamic priority. On the other hand, if \(l\succ_c s\) then \(\ind{s\succ_c l} = 0\) and thus the constraint is always satisfied.
+
+
+            In Theorem~\ref{thm: correctness of independent formulation based on BB} we show that the integer programming formulation~\ref{eq: independent formulation with siblings} solves Problem~\ref{problem_def} under \emph{independent justified-envy}.
+            \begin{theorem}\label{thm: correctness of independent formulation based on BB}
+              The formulation in~(\ref{eq: independent formulation with siblings}) solves Problem~\ref{problem_def} when we consider independent justified-envy.
+            \end{theorem}
+
+            \proof{Proof.}
+                We need to show that
+                \begin{enumerate}
+                  \item The formulation returns an allocation that is stable with unilateral dynamic priorities and that is free of independent justified-envy.
+                  \item The allocation obtained is student-optimal and maximizes the cardinality of the match.
+                \end{enumerate}
+
+                In a slight abuse of notation, we will refer \(x^{*}, y^{*}\) to the optimal solution of~(\ref{eq: independent formulation with siblings}), and we will denote by \(\mu^{*}\) the corresponding matching, i.e., \(\mu^*(s) = c\) if and only if \(x^*_{s,c} = 1\).
+                Similarly, \(\mu^*(c) = \lrl{s\in \cS : x^*_{s,c} = 1}\), and we say that \((s,c) \in \mu^*\) if \(\mu^*(s) = c\) and \(s\in \mu^*(c)\), respectively.
+
+                First, by definition of \(y\) we know that \(y_{s,s',c} = 1\) only if \(s\succ_c s'\) and both \(x_{s,c} = x_{s',c} = 1\). Hence, by definition of \(y\), it is direct that the allocation will satisfy that dynamic priorities are unilateral. Next, we show that the allocation that results from solving~(\ref{eq: independent formulation with siblings}) is free of independent justified-envy. To accomplish this we proceed by parts.
+
+                \paragraph{Non-wastefulness.} To find a contradiction, suppose there exists \((s,c) \notin \mu^*\) such that \(c \succ_s \mu^*(s)\) and \(\lra{\mu^*(c) \cap \cS^{g(s)}} < q_{c,g(s)}\). Then, we know that
+                \(\sum_{c'\succeq_s c} x^*_{s,c'} = 0\), and therefore the left-hand side of~(\ref{eq: constraint stability independent}) is equal to \(q_{c,g(s)}\). As a result, we must have that
+                \[\sum_{\substack{s'\in \cS^{g(s)}:\\ s'\succ_c s}} x^*_{s', c} + \sum_{\substack{(s',s'') \in \cS^{g(s)\times f(s')} :\\ s' \prec_c s }}  y^*_{s'',s',c} \geq q_{c,g(s)}.\]
+                Since there is no student \(s'\) satisfying that \(s' \succ_c s\) and \(s' \prec_c s\), we know that the two summations are over disjoint sets of students in \(\cS^{g(s)}\), and thus we know that
+                \[\lra{\mu^*(c)} = \sum_{\substack{s'\in \cS^{g(s)}:\\ s'\succ_c s}} x^*_{s', c} + \sum_{\substack{(s',s'') \in \cS^{g(s)\times f(s')} :\\ s' \prec_c s }}  y^*_{s'',s',c} \geq q_{c,g(s)} \geq q_{c,g(s)}.\]
+                Hence, we obtain a contradiction as we initially assumed that  \(\lra{\mu^*(c) \cap \cS^{g(s)}} < q_{c,g(s)}\).
+                \paragraph{No independent justified-envy.} To find a contradiction, suppose there exists \((s,c) \notin \mu^*\) such that \(c \succ_s \mu^*(s)\) and that \(s\) has independent justified-envy towards student \(s' \in \cS^{g(s)}\). Then, there are two options:
+                \begin{enumerate}
+                  \item \(\lra{\zeta_{\mu^*} (s,c)} > \lra{\zeta_{\mu^*} (s',c)}\), in which case \(s\) has a sibling assigned to school \(c\) and \(s'\) does not. Hence, we have that \(x^*_{\tilde{s},c} = 1, \sum_{c'\succeq_s c} x_{s,c'} = 0\), and \(x_{s',c} = 1\), where \(\tilde{s} \in f(s)\). As a result, the left-hand side of~(\ref{eq: tie breaking dynamic independent}) is equal to 2 for \((\tilde{s}, s)\), and therefore \(-x^*_{s',c} + \sum_{k\in f(s')} y_{k,s',c}\cdot \ind{s' \succ s}\) must be equal to zero.
+                  However, by hypothesis we know that \(s'\) has no siblings assigned to school \(c\), and thus the second term is equal to zero. Hence, for the constraint to be satisfied we need that \(x^*_{s',c} = 0\), which contradicts the initial hypothesis that student \(s'\) is assigned to school \(c\).
+                  \item \(\lra{\zeta_{\mu^*} (s,c)} = \lra{\zeta_{\mu^*} (s',c)}\) and \(s\succ_c s'\), in which case both students have the same priority condition.
+                  Since \(s\) has independent justified-envy towards \(s'\), we know that \(x_{s',c} = 1\), and \(\sum_{c'\succeq c} x_{s,c'} = 0\). Then, we have two sub-cases:
+                  \begin{itemize}
+                    \item If both students do not have dynamic priority, then the left-hand side of~(\ref{eq: respect priority independent}) is equal to 1. In addition, we know by hypothesis that \(s \succ_c s'\), and thus \(\ind{s\succ_c s'} = 1\). As a result, the right-hand side of~(\ref{eq: respect priority independent}) becomes \(1 - x_{s',c}
+                    + \sum_{k\in f(s')} y_{k, s',c} = 1 - x_{s',c}\), where the latter follows since both \(s\) and \(s'\) have no dynamic priority in school \(c\). Finally, this implies that \(x_{s',c} = 0\), which contradicts our hypothesis that \(s\) has justified-envy.
+                    \item If both students have dynamic priority, then~(\ref{eq: respect priority independent}) is always satisfied. On the other hand, the left-hand side of~(\ref{eq: tie breaking dynamic independent}) is equal to 2, and thus we must have that \(-x_{s',c}+ \sum_{k\in f(s')} y_{k, s',c}\cdot \ind{s' \succ_c s} = 0\).
+                    Since \(\ind{s' \succ_c s} = 0\), we must have that \(x_{s',c} = 0\), which leads to a contradiction.
+                  \end{itemize}
+                \end{enumerate}
+                \paragraph{Maximum caridnality.} To find a contradiction, suppose there exists another student-optimal assignment \(\mu'\) such that \(\sum_{s\in \cS} \ind{\mu'(s) \in \cC} > \sum_{s\in \cS} \ind{\mu^*(s) \in \cC}\). Let \(x'_{s,c} = 1\) if \(\mu'(s) = c\), and \(x'_{s,c} = 0\) otherwise, and let
+                \(\mu'(\emptyset) = \lrl{s\in \cS: \mu'(s) = \emptyset}\) (similar definition applies for \(\mu^*(\emptyset)\)). Then,
+                \[
+                \sum_{(s,c)\in \mu'} r_{s,c} = \sum_{(s,c)\in \mu'} x'_{s,c}\cdot r_{s,c} + r_{\emptyset} \lra{\mu'(\emptyset)} < \sum_{(s,c)\in \mu'} x'_{s,c}\cdot r_{s,c} + r_{\emptyset} \lra{\mu^*(\emptyset)} = \sum_{(s,c)\in \mu^*} x^*_{s,c}\cdot r_{s,c} + r_{\emptyset} \lra{\mu^*(\emptyset)} = \sum_{(s,c) \in \cV} x^*_{s,c}\cdot r_{s,c},
+                \]
+                where the first equality follows by definition of \(x'\); the inequality follows by hypothesis (i.e., that the cardinality of \(\mu'\) is higher than that of \(\mu^*\)); the second equality follows by student-optimality of both assignments, and the last equality follows by definition of \(x^*\). As a result, we obtain that \(\sum_{s,c\in \cV} x'_{s,c}\cdot r_{s,c} < \sum_{(s,c) \in \cV} x^*_{s,c} \cdot r_{s,c}\), which contradicts the optimality of \(x^*\), leading to a contradiction.
+            \Halmos\endproof
+
+
+
+            % {\small
+            % \begin{subequations}\label{eq: independent formulation with siblings}
+            % \begin{alignat}{2}
+            %   \min_{\mathbf{x}\in \cP, \mathbf{y} \in \cM(\mathbf{x})} \quad & \quad \sum_{(s,c)\in \cV} r_{s,c}\cdot x_{s,c}  \\
+            %   st. \quad & \quad q_{c,g(s)} \lrp{1- \sum_{c'\succeq_s c} x_{s,c'}} \leq \sum_{\substack{s'\in \cS^{g(s)}:\\ s'\succ_c s}} x_{s', c}
+            %   + \sum_{\substack{(s',s'') \in \cS^{g(s)\times f(s')} :\\ s' \prec_c s }}  y_{s'',s',c}\; ,\; \forall (s,c) \in \cV, \label{eq: constraint stability independent} \\
+            %   % & \quad x_{s,c} + \lrp{1-\sum_{c'\succeq_{s'} c} x_{s',c'} } \leq 2-\sum_{\substack{k\in f(s''): \\ k \succ_c s''}} y_{k, s'',c}, \; \forall s''\in \cS, s,s' \in f, f\in \cF \text{ with } s\succ_c s'\succ_c s'', c\in \cC \label{eq: independent stability for siblings} \\
+            %   & \quad \lrp{1-\sum_{c'\succeq_{s} c} x_{s,c'} } + x_{s',c} \leq 2 - x_{l,c}
+            %   + \sum_{k\in f(l)} y_{k, l,c}\cdot \ind{l \succ_c s}, \; \forall c\in \cC, \lrl{s,s'} \subseteq f\in \cF, l\in \cS^{g(s)} \label{eq: tie breaking dynamic independent}
+            %   & \quad \lrp{1-\sum_{c'\succeq_{s} c} x_{s,c'} } \leq 1 - x_{l,c}\cdot \ind{s \succ_c l}
+            %   + \sum_{k\in f(l)} y_{k, l,c}\cdot \ind{s \succ_c l}, \; \forall c\in \cC, s, l\in \cS^{g(s)} \label{eq: respect priority independent} \\
+            % \end{alignat}
+            % \end{subequations}
+            % }
+
+
+        \subsubsection{Dependent case.}
+            In the dependent case,
+            % \begin{subequations}\label{eq: dependent formulation with siblings}
+            % \begin{alignat}{2}
+            %   \min_{\mathbf{x}\in \cP, \mathbf{y} \in \cM(\mathbf{x})} \quad & \quad \sum_{(s,c)\in \cV} r_{s,c}\cdot x_{s,c}  \\
+            %   st. \quad & \quad q_{c,g(s)} \lrp{1- \sum_{c'\succeq_s c} x_{s,c'}} \leq \sum_{\substack{s'\in \cS^{g(s)}:\\ s'\succ_c s}} x_{s', c}
+            %   + \sum_{\substack{(s',s'') \in \cS\times \cS^{g(s)} :\\ s'\succ_c s,\; s''\prec_c s }}  y_{s',s'',c}\; ,\; \forall (s,c) \in \cV, \label{eq: dependent stability for no siblings} \\
+            %   & \quad x_{s,c} + \lrp{1-\sum_{c'\succeq_{s'} c} x_{s',c'} } \leq 2-\sum_{\substack{k\in f(l): \\ k \prec_c s}} y_{k, l,c}, \; \forall s,s' \in f, l\in \cS, c\in \cC \label{eq: dependent stability for siblings} \\
+            %   & \quad x_{s,c} + \lrp{1-\sum_{c'\succeq_{s'} c} x_{s',c'} } \leq 2 - x_{l,c} + \sum_{\substack{k\in f(l): \\ k \succ_c s}} y_{k, l,c}, \; \forall s,s' \in f, l\in \cS, c\in \cC \label{eq: dependent stability for siblings v2}
+            % \end{alignat}
+            % \end{subequations}
+
+            {\small
+            \begin{subequations}\label{eq: dependent formulation with siblings}
+            \begin{alignat}{2}
+              \min_{\mathbf{x}\in \cP, \mathbf{y} \in \cM(\mathbf{x})} \quad & \quad \sum_{(s,c)\in \cV} r_{s,c}\cdot x_{s,c}  \\
+              st. \quad & \quad q_{c,g(s)} \lrp{1- \sum_{c'\succeq_s c} x_{s,c'}} \leq \sum_{\substack{s'\in \cS^{g(s)}:\\ s'\succ_c s}} x_{s', c}
+              + \sum_{\substack{(s',s'') \in \cS^{g(s)\times f(s') } :\\ s''\prec_c s }}  y_{s'',s',c}\; ,\; \forall (s,c) \in \cV, \label{eq: constraint stability dependent} \\
+              & \quad x_{s,c} + \lrp{1-\sum_{c'\succeq_{s'} c} x_{s',c'} } \leq 2 - x_{l,c} + \sum_{k\in f(l)} y_{k,l,c}\cdot \ind{k \succ_c s}, \; \forall c\in \cC, \lrl{s,s'} \subseteq f\in \cF, l\in \cS^{g(s')} \label{eq: tie breaking dynamic dependent}\\
+              & \quad \lrp{1-\sum_{c'\succeq_{s} c} x_{s,c'} } \leq 1 - x_{l,c}\cdot \ind{s \succ_c l}
+              + \sum_{k\in f(l)} y_{k, l,c}\cdot \ind{s \succ_c l}, \; \forall c\in \cC, s, l\in \cS^{g(s)} \label{eq: respect priority dependent}
+            \end{alignat}
+            \end{subequations}}
+
+
+
+            In Theorem~\ref{thm: correctness of dependent formulation based on BB} we show that the integer programming formulation~\ref{eq: dependent formulation with siblings} solves Problem~\ref{problem_def}.
+            \begin{theorem}\label{thm: correctness of dependent formulation based on BB}
+              The formulation in~(\ref{eq: dependent formulation with siblings}) solves Problem~\ref{problem_def} when we consider dependent justified-envy.
+            \end{theorem}
+
+            \proof{Proof.}
+                First, note that the objective of Problems~\ref{eq: independent formulation with siblings} and~\ref{eq: dependent formulation with siblings} are the same. In addition, the sets of constraints~(\ref{eq: constraint stability dependent}) and~(\ref{eq: respect priority dependent}) are equivalent to~(\ref{eq: constraint stability independent}) and~(\ref{eq: respect priority independent}), respectively. Hence, the proofs for non-wastefulness and maximum cardinality are the same. Hence, we only need to show that the optimal solution of Problem~\ref{eq: dependent formulation with siblings} is free of dependent justified-envy.
+
+                To show this, we proceed by contradiction. Suppose there exists \((s,c) \notin \mu^*\) such that \(c \succ_s \mu^*(s)\) and that \(s\) has dependent justified-envy towards student \(s' \in \cS^{g(s)}\). As for the independent case, there are two options:
+                \begin{enumerate}
+                  \item \(\zeta_{\mu^*} (s,c) \succ_c \zeta_{\mu^*} (s',c)\), in which case \(s\) has a sibling assigned to school \(c\) and either \(s'\) has no siblings assigned to \(c\) (i.e., \(\zeta_{\mu^*} (s',c) = \emptyset\)) or \(s'\) has a sibling assigned to \(c\) that has lower priority compared to \(\zeta_{\mu^*} (s,c)\). Then, we know that \(x_{\zeta_{\mu^*} (s,c),c} = 1\), and thus the left-hand side of~(\ref{eq: tie breaking dynamic dependent}) is equal to 2.
+                  On the other hand, since either \(s'\) has no sibling or has a sibling with lower priority than \(\zeta_{\mu^*} (s,c)\), we know that \(\sum_{k\in f(l)} y_{k,s',c}\cdot \ind{k \succ_c \zeta_{\mu^*} (s,c)} = 0\), and therefore the right-hand side is equal to \(2-x_{s',c}\). As a result, we must have that \(x_{s',c} = 0\), which contradicts the hypothesis that \(s\) has dependent-justified envy towards \(s'\) in school \(c\).
+                  \item \(\zeta_{\mu^*} (s,c) \sim_c \zeta_{\mu^*} (s',c)\) and \(s\succ_c s'\), in which case both students have no dynamic priority.
+                  Since \(s\) has independent justified-envy towards \(s'\), we know that \(x_{s',c} = 1\), and \(\sum_{c'\succeq c} x_{s,c'} = 0\). Then, the left-hand side of~(\ref{eq: respect priority dependent}) is equal to 1, while the right-hand side is equal to \(1 - x_{s',c}\). Hence, we must have that \(x_{s',c} = 0\), which leads to a contradiction since we assumed that \(s\) has dependent justified-envy towards \(s'\) in school \(c\).
+                \end{enumerate}
+            \Halmos\endproof
+
+
+    % \subsection{Cutoff formulation}
+    %     Although in some systems students may not have a score, we can use schools' priorities to construct one.\footnote{Alternatively, we can use the random tie-breaker as a score. In general, since we only care about the order, any set of scores that preserve the order defined by \(\succ_c\) works.} Specifically, if student \(s\) has the \(k\)-th highest priority in school \(c\), then we assume their score is \(p_{s,c} = \frac{\lra{S^g_c}-{k} + 1}{\lra{S^g_c}}\). For example, the student \(s\) with ex-ante highest priority in school \(s\) has score \(p_{s,c} = 1\), while the ex-ante lowest priority student \(s'\) in that school has score \(p_{s',c} = \frac{1}{\lra{S^g_c}}\).
+    %
+    %     Based on these scores, an alternative approach to capture dynamic priorities is to extend the cutoff formulation described in~\cite{agoston2016integer}. This formulation, which relies on the notion of ascending score limits introduced in~\cite{biro2015college}, replaces the stability constraints~(\ref{eq: statibility for sosm}) by modeling the cutoff \(z_c\) of each school \(c\in \cC\), which is equal to the lowest score that guarantees admission to that school. To capture our setting, we extend this formulation by considering two cutoffs per school and grade level, \(w^g_c\) and \(z^g_{c}\). The first set
+    %     of cutoffs, \(\lrl{w_{c}^g}_{c\in \cC, g\in \cG}\), captures the minimum score required to be granted admission in school \(c\) in grade \(g\) without dynamic priorities, i.e., for students with no siblings assigned to school \(c\). The second set of cutoffs, \(\lrl{z_{c}^g}_{c\in \cC, g\in \cG}\), represents the minimum score required to get admitted to school \(c\) in grade \(g\) if the student gets siblings' priority. By construction, note that \(z_c^g \leq w_c^g\) for all \((c,g)\in \cC\times \cG\). Moreover, let
+    %     \begin{equation}\label{eq: set of score limits}
+    %       \cL = \lrl{\mathbf{w}, \mathbf{z} \in [0,1]^{\cC\times \cG} \times [0,1]^{\cC\times \cG}\;:\; w_{c,g} \text{ and } z_{c,g} \text{ are cutoffs for } (c,g) \in \cC\times \cG}
+    %     \end{equation}
+    %     be the set of cutoffs for prioritized and non-prioritized students. Given this set, in Theorem~\ref{thm: correctness of formulation based on mincut} we show that Problem~\ref{problem_def} can be formulated as the following mixed-integer program:
+    %     \begin{subequations}\label{eq: formulation based on mincut}
+    %     \begin{alignat}{2}
+    %       \min_{\substack{\mathbf{x} \in \cP, \mathbf{y}\in \cM(\mathbf{x}) \\ (\mathbf{w}, \mathbf{z}) \in \cL}} \quad & \quad \sum_{(s,c) \in \cV} x_{s,c}\cdot r_{s,c} \\
+    %       st. \quad & \quad w_{c}^{g(s)} \leq (1-x_{s,c})\cdot \lrp{\bar{p}+1} + p_{s,c}\cdot \lrp{1+\frac{y_{s,s',c}}{p_{s,c}}},\; \forall (s,c) \in \cV, \; s'\in f(s) \label{eq: constraint_mincut_1} \\
+    %       & \quad z_{c}^{g(s)} \leq (1-y_{s,s',c})\cdot \lrp{\bar{p}+1} + p_{s,c},\; \forall (s,c) \in \cV, s'\in f(s), \; \lra{f(s)} > 1  \label{eq: constraint_mincut_2} \\
+    %       & \quad p_{s,c}+\epsilon \leq w_{c}^{g(s)} + \lrp{\sum_{c' \succeq_s c}x_{s,c'}}\lrp{\bar{p}+1},\; \forall (s,c) \in \cV, \; \lra{f(s)} = 1  \label{eq: constraint_mincut_3} \\
+    %       & \quad p_{s,c}+\epsilon \leq z_{c}^{g(s)} + \lrp{y_{s,s',c} + \sum_{c' \succ_s c} x_{s,c'}}\lrp{\bar{p}+1},\; \forall  (s,c) \in \cV, \; s'\in f(s), \; \lra{f(s)} > 1  \label{eq: constraint_mincut_4}
+    %     \end{alignat}
+    %     \end{subequations}
+    %
+    %     \nacho{Confirm that this extension works. In any case, the implementation with only one grade is commented right below.}
+    %     Constraints~(\ref{eq: constraint_mincut_1}),~(\ref{eq: constraint_mincut_2}),~(\ref{eq: constraint_mincut_3}) and~(\ref{eq: constraint_mincut_4}) replace the stability constraints in~(\ref{eq: standard formulation with siblings}) by properly defining the cutoffs for prioritized and non-prioritized students. More specifically, constraints~(\ref{eq: constraint_mincut_1}) guarantees that student \(s\) is admitted to school \(c\) if their score \(p_{s,c}\) is above the cutoff \(w_{c}^{g(s)}\), unless \(s\) has a siblings \(s'\) assigned to the same school. In the latter case, the constraint will not be binding, and thus student \(s\) may be admitted with a lower score. Constraint~(\ref{eq: constraint_mincut_2}) enforces that, if student \(s\) is assigned to \(c\) along with their sibling \(s'\), then their score is higher than the cutoff for prioritized students. Finally, constraints~(\ref{eq: constraint_mincut_3}) and~(\ref{eq: constraint_mincut_4}) ensure that if student \(s\) is not assigned to \(c\) or to another school they prefer, then their score is below the cutoff of school \(c\).
+    %
+    %
+    %     \begin{theorem}\label{thm: correctness of formulation based on mincut}
+    %       The formulation in~(\ref{eq: formulation based on mincut}) solves Problem~\ref{problem_def}.
+    %     \end{theorem}

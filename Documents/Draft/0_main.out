@@ -1,0 +1,22 @@
+\BOOKMARK [1][-]{section.0.1}{Introduction}{}% 1
+\BOOKMARK [2][-]{subsection.0.1.1}{Contributions}{section.0.1}% 2
+\BOOKMARK [1][-]{section.0.2}{Literature}{}% 3
+\BOOKMARK [1][-]{section.0.3}{Model}{}% 4
+\BOOKMARK [2][-]{subsection.0.3.1}{Practical preferences and priorities}{section.0.3}% 5
+\BOOKMARK [2][-]{subsection.0.3.2}{Maximum cardinality stable matching}{section.0.3}% 6
+\BOOKMARK [1][-]{section.0.4}{Exact Formulations}{}% 7
+\BOOKMARK [2][-]{subsection.0.4.1}{Base formulation}{section.0.4}% 8
+\BOOKMARK [3][-]{subsubsection.0.4.1.1}{Independent case.}{subsection.0.4.1}% 9
+\BOOKMARK [3][-]{subsubsection.0.4.1.2}{Dependent case.}{subsection.0.4.1}% 10
+\BOOKMARK [1][-]{section.0.5}{Heuristics}{}% 11
+\BOOKMARK [2][-]{subsection.0.5.1}{Preprocessing}{section.0.5}% 12
+\BOOKMARK [2][-]{subsection.0.5.2}{Near-Optimal Approaches}{section.0.5}% 13
+\BOOKMARK [1][-]{section.0.6}{Experiments}{}% 14
+\BOOKMARK [2][-]{subsection.0.6.1}{Synthetic Data}{section.0.6}% 15
+\BOOKMARK [3][-]{subsubsection.0.6.1.1}{Setting and Data.}{subsection.0.6.1}% 16
+\BOOKMARK [3][-]{subsubsection.0.6.1.2}{Results.}{subsection.0.6.1}% 17
+\BOOKMARK [2][-]{subsection.0.6.2}{Real Data: School Choice in Chile}{section.0.6}% 18
+\BOOKMARK [3][-]{subsubsection.0.6.2.1}{Setting and Data.}{subsection.0.6.2}% 19
+\BOOKMARK [3][-]{subsubsection.0.6.2.2}{Results.}{subsection.0.6.2}% 20
+\BOOKMARK [1][-]{section.0.7}{Conclusions}{}% 21
+\BOOKMARK [1][-]{section.0.1}{Additional Results}{}% 22

@@ -1,0 +1,154 @@
+%!TEX root = ./0_main.tex
+
+\section{Model}\label{sec: model}
+
+    We formalize the \emph{stable matching problem with dynamic priorities} using school choice with siblings as a motivating example.
+
+    Let \(\cS\) be the set of students, and let \(\cF\) be a partition of students into families, so that \(f(s) \in \cF\) represents the family of student \(s\in \cS\). Then, we say that students \(s\) and \(s'\) are siblings if \(f(s) = f(s')\), and we say that \(s\) has no siblings if \(f(s) = \lrl{s}\).  In addition, we assume that each family \(f\) has a strict preference order \(\succ_f\) over tuples in the set \(\lrp{C\cup\lrl{\emptyset}}^{\lra{f}}\), where \(\emptyset\) represents that a student is unassigned. Specifically, if \(f = (f_1, f_2)\), then \(c,c' \succ_f c'', c'''\) implies that family \(f\) prefers that \(f_1\) and \(f_2\) go to schools \(c\) and \(c'\) over \(c''\) and \(c'''\), respectively.\footnote{In a slight abuse of notation, we use \(\sim_f\) to refer that family \(f\) is indifferent between two subsets of schools, i.e., for any \(\vec{c}, \vec{c}' \in \lrp{\cC \cup \lrl{\emptyset}}^{\lra{f}}\), \(\vec{c} \sim_f \vec{c}'\) if neither \(\vec{c}\succ_f \vec{c}'\) nor \(\vec{c}'\succ_f \vec{c}\) hold.}
+    Finally, let \(\cG\) be the set of grade levels, \(g(s)\) the grade of student \(s\), \(\cS^{g} \subseteq \cS\) the set of students applying to grade level \(g\in \cG\), and \(S^g_c\) the set of students applying to school \(c\in \cC\) in grade \(g\in \cG\).\footnote{Notice that the model applies directly in cases where there is a ``single grade level'', as in refugee resettlement, college admissions and in the hospital-resident problem.}
+
+    On the other side of the market, let \(\cC\) be the set of schools. Each school \(c\) offers \(q_{cg}\) seats on each grade \(g\in \cG\), with \(q_{cg} = 0\) representing that school \(c\) does not offer grade \(g\). For simplicity, we assume that there are no special reserves or quotas.\footnote{In the Appendix we extend our formulation to include overlapping types and reserves.} In addition, we assume that all schools consider a \emph{sibling priority}, i.e., they prioritize students who have a sibling assigned or enrolled in the school. As a result, each school has two priority groups: (i) students with siblings and (ii) students with no siblings in the school, where students in the former group are strictly preferred to students in the latter. Within each priority group, schools break ties with a random tie-breaker. It is important to notice that the random tie-breaker defines a strict order of students only within each priority group; however, it does not define an order among any two pair of students, as they may change from one priority group to the other depending on the assignment of their siblings. Nevertheless, we assume that each school \(c\) has preferences over sets of students in \(2^{\cS}\), which we denote by \(\succ_c\).
+
+    Let \(\cV \subseteq \cS \times \cC\cup \lrl{\emptyset}\) be the seat of feasible pairs, i.e., \((s,c) \in \cV\) implies that student \(s\) applied to \(c\), satisfies all the admission requirements, and \(q_{c,g(s)} > 0\). Similarly, let \(\cV^{g} \subseteq \cV\) be the set of feasible pairs including students applying to grade \(g\in \cG\). A matching is an assignment \(\mu\subseteq \cV\) such that (i) each student is assigned to at most one school in \(\cC\), and (ii) each school is assigned at most its capacity in each grade level. Formally, given an assignment \(\mu\), let \(\mu(s) \in \cC\cup \lrl{\emptyset}\) be the school assigned to student \(s\), and let \(\mu(c)\) be the set of students assigned to school \(c\). Then, a matching satisfies that (i) \(\mu(s) \in \cC\cup \lrl{\emptyset}\) for all students \(s\in \cS\) and (ii) \(\lra{\lrl{s \in \mu(c)\;:\; g(s) = g}} \leq q_{cg}\) for all schools \(c\in \cC\) and grade levels \(g\in \cG\).
+
+    As \cite{roth02} discusses, a desired property of any assignment is stability, i.e., that there are no pair of agents that prefer to circumvent the match and be assigned to each other. Given an assignment \(\mu\), we say that student \(s\) has \emph{justified envy} towards another student \(s'\) assigned to school \(c\) if (i) \(g(s)=g(s')\), (ii) \(\lrp{c, \mu(f\setminus \lrl{s})} \succ_f \mu(f)\), and(iii) \(\mu(c) \cup \lrl{s} \setminus \lrl{s'} \succ_c \mu(c)\). In words, the first condition states that both students belong to the same grade level; the second condition implies that the family prefer that \(s\in f\) is assigned to \(c\) given the assignment of their siblings; and the third condition states that school \(c\) prefers the set of student that replaces \(s'\) with \(s\). In addition, we say that an assignment \(\mu\) is \emph{non-wasteful} if there is no student \(s\in \cS\) and school \(c\) such that \(\mu(c, \mu\lrp{f\setminus\lrl{s}}) \succ_f \mu(f)\) and \(\lra{ \lrl{ s'\in \mu(c)\;:\; g(s') = g(s)} } < q_{cg}\). Then, we say that an assignment is \emph{stable} if it is \emph{envy-free} (i.e., no student has \emph{justified envy}) and \emph{non-wasteful}.
+
+    As~\cite{Correa_2022} discuss, a stable assignment may not exist (see Theorem~\ref{thm: no stable matching} in Appendix~\ref{app: additional results}). Moreover, families may not be able to report preferences over tuples of schools, as the number of combinations increases exponentially in the number of siblings applying to the system. For these reasons, many school systems elicit a preference list for each family member, i.e., a set of preference orders \(\lrl{\succ_i}_{i\in f}\) among schools in \(\cC\cup \lrl{\emptyset}\). Then, as proposed in~\cite{Correa_2022}, one option to solve the problem is to define an order in which grades are processed and sequentially solve the assignment of each grade level using the student-optimal variant of DA. More specifically, the algorithm in~\cite{Correa_2022} starts processing the highest grade (i.e., 12th grade). Then, before moving to the next grade, the sibling priorities are updated, considering the assignment of the grade levels already processed. After processing the final grade level (i.e., Pre-K), this procedure finishes.
+
+    Notice that the heuristic mentioned above obtains a stable assignment is the preferences of families satisfy \emph{higher-first}, i.e., each family prioritizes the assignment of their oldest member (see Proposition 2 in~\cite{Correa_2022}). However, this is not the case if some families' preferences do not satisfy this condition. In addition, as Example~\ref{ex: order of grades matters} illustrates, the order in which grades are processed matters.
+    \begin{example}\label{ex: order of grades matters}
+        Consider an instance with two grades \(g_1 < g_2\), one family \(f = \lrl{f_1,f_2}\), and two additional students \(\lrl{a_1, a_2}\). Students \(f_1\) and \(a_1\) apply to grade \(g_1\),
+        and \(f_2\) and \(a_2\) apply to grade \(g_2\). Finally, the preferences and priorities are:
+        \begin{equation}
+          \begin{aligned}
+            \succ_{f_1}&: c_2, c_1, \quad &\succ_{a_1}: c_2, c_1   \\
+            \succ_{f_2}&: c_1, c_2, \quad &\succ_{a_2}: c_1, c_2   \\
+            \succ_{c_1}^{g_1}&: a_1, f_1, \quad &\succ_{c_1}^{g_2}: a_2, f_2 \\
+            \succ_{c_2}^{g_1}&: a_1, f_1, \quad &\succ_{c_2}^{g_2}: a_2, f_2 \\
+          \end{aligned}
+        \end{equation}
+        We observe that, if grades are processed in decreasing order (as in Chile), we obtain the assignment \(\mu = \lrl{(f_1, c_1), (a_1, c_2), (f_2, c_1), (a_2, c_2)}\). In contrast, if we process grades in increasing order, we obtain the assignment \(\mu' = \lrl{(f_1, c_2), (a_1, c_1), (f_2, c_2), (a_2, c_1)}\).
+        \hfill \(\square\)
+    \end{example}
+
+    Moreover, defining an order in which grades must be processed imposes an additional constraint that may rule out a stable assignment that is weakly preferred by every family (and strictly preferred by at least one family). This is illustrated in Example~\ref{ex: flexibility helps welfare}.
+    \begin{example}\label{ex: flexibility helps welfare}
+        Consider an instance with two grades, \(G = \lrl{g_1, g_2}, \; g_1 < g_2\), two families \(f = \lrl{f_1, f_2}, f' = \lrl{f'_1, f'_2}\), and a set of students \(S = \lrl{f_1, f_2, f_1', f_2', a_1, a_2, a_3, a_4}\).
+        In addition, consider two schools \(C = \lrl{c_1, c_2}\) offering two seats in each grade. Finally, suppose that the preferences of students are given by:
+        \begin{equation}
+          \begin{aligned}
+            f&: (c_1, c_1) \sim (c_2, c_2) \succ (c_1, c_2) \succ (c_2, c_1) ,  & \quad a_1: c_1 \\
+            f'&: (c_1, c_1) \sim (c_2, c_2) \succ (c_1, c_2) \succ (c_2, c_1),  & \quad a_2: c_2 \\
+            i&: c_1 \succ c_2, \; \forall i \in \lrl{f_1, f_1'}, & \quad a_3: c_1 \\
+            i&: c_2 \succ c_1, \; \forall i \in \lrl{f_2, f_2'},  & \quad a_4: c_2, \\
+          \end{aligned}
+        \end{equation}\
+        while schools priorities are:
+        \begin{equation}
+          \begin{aligned}
+            c_1&: f \succ f' \succ \lrl{a_1,a_3} \\
+            c_2&: f \succ f' \succ \lrl{a_2,a_4}
+          \end{aligned}
+        \end{equation}
+        If we process grades starting with \(g_1\), we obtain the assignment
+        \[\mu = \lrl{(f_1,c_1), (f_2,c_1), (f'_1,c_1), (f'_2,c_1), (a_1, \emptyset), (a_2, c_2), (a_3, \emptyset), (a_4, c_2)},\]
+        i.e., two students result unassigned. However, notice that the allocation
+        \[\mu' = \lrl{(f_1,c_1), (f_2,c_1), (f'_1,c_2), (f'_2,c_2), (a_1, c_1), (a_2, c_2), (a_3, c_1), (a_4, c_2)}\]
+        satisfies our notion (to be refined) of stability and leads to no students unassigned.
+        \hfill \(\square\)
+    \end{example}
+
+    Examples\ref{ex: order of grades matters} and~\ref{ex: flexibility helps welfare} show that the order in which grade levels are processed matters and that imposing an order may reduce the total number of students assigned. These two examples motivate Problem~\ref{problem_def}, which aims to find the student-optimal stable assignment of maximum cardinality by leveraging the siblings' priority.
+
+
+\subsection{Practical preferences and priorities}
+    The definition of \emph{justified envy} in the previous section assumes that schools have preferences over sets of students, and that families have joint preferences over sets of schools. However, in most clearinghouses, preferences and priorities are not as complex, and simply involve preferences by students and a combination of random tie-breakers and priority groups to define schools' priorities. For this reason, in the remainder of the paper we will assume a simplified structure of preferences and priorities, as formalized in Assumption~\ref{assump: simplified preferences and priorities}.
+
+    \begin{assumption}\label{assump: simplified preferences and priorities}
+      We assume that students' preferences and school priorities are such that:
+      \begin{enumerate}
+        \item On the students side, we assume that each student report a strict preference list.
+        \item On the schools side, we assume that each school ranks students according to a random tie-breaker, and that there is a single priority group that gives higher priority to students with siblings assigned or enrolled in the school. %Moreover, if two students have siblings priority, they are order according to their own random tie-breaker.
+      \end{enumerate}
+    \end{assumption}
+    Given this assumption, we will use \(\succ_c\) to represent ex-ante priorities at school \(c\), i.e., the priorities derived from the random tie-breaker without considering siblings priorities.
+    Although Assumption~\ref{assump: simplified preferences and priorities} simplifies the reporting of preferences, the siblings' priority needs some limitations to ensure the fairness of the assignment, as the following example illustrates.
+
+    \begin{example}\label{ex: unlawful siblings priority}
+      Consider an instance with a single level, a set of students \(\cS = \lrl{a_1, a_2, f_1, f_2}\) where \(f_1\) and \(f_2\) are siblings, and a single school with two seats. Moreover, suppose ex-ante priorities are \(a_1 \succ_c a_2 \succ_c f_1 \succ_c f_2\). Then, one possible assignment is \(\mu = \lrl{(a_1, c), (a_2, c), (f_1, \emptyset), (f_2, \emptyset)}\). However, the alternative assignment \(\mu' = \lrl{(a_1, \emptyset), (a_2, \emptyset), (f_1, c), (f_2,c)}\) would still be feasible, as both \(f_1\) and \(f_2\) have siblings' priority and thus have the highest priority ex-post. \hfill \(\square\)
+    \end{example}
+
+    We claim that assignment \(\mu'\) in Example~\ref{ex: unlawful siblings priority} is not desirable, since neither \(f_1\) nor \(f_2\) would be admitted without siblings priority. To rule out this possibility, we restrict attention to assignments that satisfy \emph{unilateral dynamic priorities}, which are formalized in Definition~\ref{def: unilateral priorities}.
+    \begin{definition}\label{def: unilateral priorities}
+      Consider an assignment \(\mu \subseteq \cV\). Then, \(\mu\) satisfies \emph{unilateral dynamic priorities} if, for any student \(s'\in f\) with a sibling \(s''\in f\) assigned to the same school \(c\), either \(s'\in\mu_{-s''}(c)\) or \(s''\in \mu_{-s'}(c)\), where \(\mu_{-s}\) is the assignment that would be obtained if student \(s\) were excluded from the set of students.
+    \end{definition}
+    In words, \emph{unilateral priorities} ensure that at least one of the siblings is independently assigned to the school, potentially providing priority to their other siblings.
+
+    It remains to describe how ties are broken among students with siblings priority. One possible option, which we refer to as the \emph{dependent rule}, is that students that ties among students that get prioritized are broken based on the priority of their family member that granted them their siblings priority. The other alternative, which we refer to as the \emph{independent rule}, is that we break ties among prioritized students based on their own original priority. In Example~\ref{ex: breaking ties among siblings} we illustrate these two rules.
+
+    \begin{example}\label{ex: breaking ties among siblings}
+      Consider a single school \(c\) offering three seats, and two families, \(f = \lrl{f_1, f_2}, g=\lrl{g_1,g_2}\), with all students applying to the same grade. Moreover, suppose that ex-ante priorities are \(f_1 \succ_c g_1 \succ_c g_2 \succ_c f_2\). Then, \(\mu(f_1)=c\) and \(\mu(g_1)=c\). As a result, both \(f_2\) and \(g_2\) get siblings priority, but there is only one seat left. If the \emph{dependent rule} is in place, then \(\mu(f_2) = c\) and \(\mu(g_2) = \emptyset\), since \(f_1 \succ_c g_1\). On the other hand, if the \emph{independent rule} is in place, \(\mu(f_2) = \emptyset\) and \(\mu(g_2) = c\), since \(g_2 \succ_c f_2\).
+    \end{example}
+
+    Note that the \emph{dependent} and the \emph{independent} rules are used in practice. On the one hand, the former is used in Chile \citep{Correa_2022}, as the clearinghouse breaks ties at the family level first, and then breaks ties within each family. On the other hand, the latter is used in NYC to break ties among students with siblings priority \nacho{Confirm that this is the case.}. Hence, which rule to use is a policy relevant question that we evaluate in Section~\ref{sec: experiments}.
+
+    Based on these two rules (i.e., \emph{dependent vs. independent rules}), we define two notions of justified-envy: (i) \emph{dependent-justified envy} and (ii) \emph{independent-justified envy}. Before formally describing these, let \(\zeta_{\mu}(s,c) = \argmax_{k\in f(s)\setminus \lrl{s}}\lrl{p_{k,c} \;:\; \mu(k) = c, \; k\succ_c s }\) be the function that returns the sibling of student \(s\) assigned to \(c\) with the highest ex-ante priority. In a slight abuse of notation, we use \(\zeta_{\mu}(s,c) = \emptyset\) if there is no such sibling, and thus \(\zeta_{\mu}(s,c) \sim_c \zeta_{\mu}(s',c)\) if and only if both \(s\) and \(s'\) have no siblings assigned to school \(c\).
+
+    \begin{definition}{(Dependent-justified envy)}
+      A student \(s\) has dependent-justified envy toward another student \(s'\) assigned to a school \(c\) if (i) \(g(s) = g(s')\), (ii) \(c \succ_s \mu(s)\), and (iii) either \(\zeta_{\mu}(s,c) \succ_c \zeta_{\mu}(s',c)\) or \(\zeta_{\mu}(s,c) \sim_c \zeta_{\mu}(s',c)\) and \(s\succ_c s'\).
+    \end{definition}
+
+    \begin{definition}{(Independent-justified envy)}
+      A student \(s\) has independent-justified envy toward another student \(s'\) assigned to a school \(c\) if (i) \(g(s) = g(s')\), (ii) \(c \succ_s \mu(s)\), and (iii) either \(\lra{\zeta_{\mu}(s,c)} > \lra{\zeta_{\mu}(s',c)}\) or \(\lra{\zeta_{\mu}(s,c)} = \lra{\zeta_{\mu}(s',c)}\) and \(s\succ_c s'\).
+    \end{definition}
+
+    % \begin{example}
+    %   Consider an instance with a single family \(f=\lrl{f_1, f_2}\), a set of students \(\cS = \lrl{s, f_1, f_2}\), and a single school \(c\) with capacity \(q_c=2\). Every student prefer \(c\) to being unassigned, while ex-ante priorities at school \(c\) are: \(\succ_c: s \succ f_1 \succ f_2\).
+    %   Notice that there are two possible non-wasteful assignments:
+    %   \begin{enumerate}
+    %     \item Relative priority: \(\mu = \lrl{(s,c), (f_1, c), (f_2, \emptyset)}\)
+    %     \item Absolute priority: \(\mu = \lrl{(s,\emptyset), (f_1, c), (f_2, c)}\)
+    %   \end{enumerate}
+    %   \hfill \(\square\)
+    % \end{example}
+    %
+    % In the reminder of this paper we focus on relative priorities. In the Appendix we extend our formulations to the case with absolute priorities, and we show that the total number of siblings assigned to the same schools is larger for the case with absolute priorities.
+    Finally, we say that an allocation is (in)dependent-stable if it is (in)dependent-justify envy free and non-wasteful.
+
+\subsection{Maximum cardinality stable matching}
+    We now formalize the problem that we focus on this paper.
+    \begin{problem}\label{problem_def}
+    Given an instance $\Gamma$, the \emph{stable-matching with unilateral dynamic priorities} aims to find a student-optimal stable-assignment with unilateral priorities of maximum cardinality.
+    % \begin{equation*}
+    % \min_{\mu} \Bigg\{ \sum_{(s,c)\in \mu} r_{s,c} \; : \;  \mu \text{ is a stable matching }
+    %  \Bigg\}.
+    % \end{equation*}
+    \end{problem}
+    Problem~\ref{problem_def} is relevant from a policy perspective because it combines two of the primary goals in many matching markets: (i) to find an assignment involving as many agents as possible, and (ii) incorporate dynamic priorities. However, in Theorem~\ref{thm: problem is np hard} we show that Problem~\ref{problem_def} is NP-Hard.
+
+    \begin{theorem}\label{thm: problem is np hard}
+      Problem~\ref{problem_def} is NP-hard, independent of the rule used to break ties among students with siblings priority.
+    \end{theorem}
+    \begin{proof}{Proof.}
+      \nacho{TODO: I guess we should follow Manlove et al. 2002}
+      \nacho{I think the easiest way to prove this is by showing that the problem with siblings can be modeled as an instance of the problem with ties and incomplete lists, which is known to be NP-complete.
+      Manlove 2002 shows that the problem is NP-complete even if ties are in only one side and ties are of length max 2; if we think of siblings as being tied, then this would exactly apply.}
+      % We know that the maximum cardinality stable-matching problem with ties is NP-hard, even if ties are only on one side, and the tail of the preferences, and of size at most 2. \nacho{cite Manlove 2002}
+      % We refer to this latter problem as SMTIR. We will show that we can reduce this problem to an instance of the stable matching problem with dynamic priorities.
+      %
+      % An instance of SMTIR consists of a set of students \(M\) with strict preferences, and a set of schools \(W\) whose lists of priorities may have ties at the tail of size at most 2. The decision problem is whether there exists a stable matching with size greater than or equal to \(K\).
+      %
+      % Given an instance of SMTIR, we construct an instance of SMD as follows. For each student \(i\in M\) in SMTIR we have a student \(i\in I\) in SMD. In addition, each time student \(i\) is in a tie in the priorities of a given school \(j\) (if any), we create a sibling of student \(i\) that applies to only that school \(j\) on a different grade \(g'\). Notice that a student \(i\in M\) may have multiple siblings in \(I\), since \(i\) will have a different sibling each time he is in a tie. Let \(S\) be the cardinality of the siblings added, and let \(r_{i',j} = 0\) for any sibling \(i'\) in any school \(j\).
+      %
+      % We now show that there exists solution to SMTIR generating at least \(K\) matches if and only if there exists a solution to SMD generating \(K\) matches.
+      % \begin{itemize}
+      %   \item[\(\Rightarrow\)] Suppose there exists a match \(\mu\) for SMTIR that generates at least \(K\) matches. Then, we construct a feasible match \(\mu'\) for SMD that generates at least \(K\) matches. First, we let \(\mu_{i}' = \mu_i\) for each \(i\in I\cap M\). We know that this is a feasible assignment in SMD since each student is assigned to one school, and each school is assigned at most its capacity. In addition, since \(r_{i,j} = 1\) for all \(i\in M\cap I\)and \(j\in J\), we know that \(\sum_{i,j\in \mu'}r_{i,j}\geq K\).
+      %   It remains to show that the resulting match \(\mu'\) is \emph{ex-post} stable. To see this, \nacho{complete.}
+      %   \item[\(\Leftarrow\)] Suppose that there exists a matching \(\mu'\) for SMD that generates a value of at least \(K\). Since the objective is greater than or equal to \(K\) and \(\mu'\) is a matchign and \(r_{i',j} = 0\) for all the artificial siblings, let \(\mu_i = \mu_i'\) for each \(i\in I\cap M\). It remains to show that \(\mu\) is a stable matching. \nacho{Compelte this}.
+      % \end{itemize}
+    \end{proof}
+
+    \nacho{Maybe add some result regarding approximability? Maybe we can find something similar to what is in Bobbio et al. 2022.}
+
+
+    % Given this hardness result, we will introduce exact formulations for the problem and new heuristics that will allow us to find near-optimal solutions in a reasonable time.

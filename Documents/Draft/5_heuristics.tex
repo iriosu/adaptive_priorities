@@ -1,0 +1,56 @@
+%!TEX root = ./0_main.tex
+\section{Heuristics}\label{sec: heuristics}
+
+    Given the complexity of the problem, solving the formulations described in Section~\ref{sec: exact} may take a significant amount of time.
+    In this section, we introduce several heuristics that can reduce computational times. Specifically, in Section~\ref{subsec: preprocessing} we discuss preprocessing heuristics that can reduce the size of the problem while keeping the set of optimal solutions. For cases when this preprocessing is not enough to solve the problem reasonably fast, in Section~\ref{subsec: near optimal heuristics} we propose heuristics to find near-optimal solutions quickly.
+
+    \subsection{Preprocessing}\label{subsec: preprocessing}
+
+        \nacho{Not sure if these are definitions of propositions. I guess propositions because we need to show that they cannot belong to any stable matching.}
+        \begin{proposition}
+          A pair \((s,c)\) is school-dominated if there exists \(c' \succ_s c\)
+          \[\lra{\lrl{s' \in \cS\setminus \lrl{s} \;:\; s'\succ_{c} s}} \leq q_{c,g(s)}\]
+        \end{proposition}
+
+        \begin{proposition}
+          A pair \((s,c)\) is student-dominated if
+          \[
+          \lra{\lrl{s'\in \cS\setminus \lrl{s} \;:\; s' \succ_{c} s \text{ and } c\succ_{s'} c' \; \forall c'\in \cC, \; }} >  q_{c,g(s)}
+          \]
+        \end{proposition}
+
+
+        \begin{proposition}\label{prop: school-domination preserved}
+          If a pair \((s,c)\) is school-dominated in the case with no dynamic priorities, then it is also school-dominated in the case with dynamic priorities.
+        \end{proposition}
+
+        Proposition~\ref{prop: school-domination preserved} implies that school-dominated nodes will remain dominated after dynamic priorities are taken into account. However, as the following example illustrates, this may not be the case when we consider student-dominated pairs.
+
+        \begin{example}
+          Consider an instance with two levels, \(G = \lrl{g_1, g_2}\), one family \(f = \lrl{f_1, f_2}\), and two additional students, \(\lrl{a_1, a_2}\). Students' subscripts indicate the level to which they belong, i.e., \(\cS^{g_1} = \lrl{f_1, a_1}\) and \(\cS^{g_2} = \lrl{f_2, a_2}\). In addition, suppose that there are two schools \(\cC = \lrl{c_1, c_2}\), each offering one seat per level, and suppose that every student prefers \(c_1\) over \(c_2\). Finally, suppose that \(f_1 \succ_c a_1\) and \(a_2 \succ_c f_2\) for every school \(c\in \cC\).
+
+          In this case, if dynamic priorities did not exist, then the pair \((f_2, c_1)\) would be student-dominated by the pair \((a_2, c_1)\), since student \(a_2\)'s top preference is \(c_1\) and \(c_1\) prefers \(a_2\) over \(f_2\). However, with dynamic priorities, we know that student \(f_1\) will be assigned to school \(c_1\), and thus \(f_2\) will get dynamic priority and will no longer be student-dominated.
+        \end{example}
+
+        \begin{proposition}
+          If a pair \((s,c)\) is student-dominated under dynamic priorities if
+          \[
+          \lra{\lrl{s'\in \cS\setminus \lrl{s} \;:\; s' \succ_{c} s \text{ and } c\succ_{s'} c' \; \forall c'\in \cC, \; }} > q_{c,g(s)}
+          \]
+        \end{proposition}
+
+
+
+        \begin{algorithm}
+          bla
+        \end{algorithm}
+
+    \subsection{Near-Optimal Approaches}\label{subsec: near optimal heuristics}
+
+        We consider three families of heuristics:
+        \begin{itemize}
+          \item Sequential DA~\citep{Correa_2022}: This heuristic first defines an order among grade levels (e.g., decreasing from 12th grade to Pre-K), and then sequentially solves the assignment for each grade level using DA. Before moving to the next level, the algorithm updates priorities given by the assignments in the levels already processed, and continues until processing the last level.
+          \item DA and re-allocation: This heuristic starts solving the assignment problem without considering any dynamic priorities. Then, the algorithm identifies students whose siblings were assigned to schools they prefer more, and assigns them to those schools unless they filled their quota with other families. After this, the algorithm computes the number of seats left in each school and level, and then computes the match on the residual graph that involves the remaining capacities and the students who were not previously assigned.
+          \item NRMP algorithm: This algorithm works when participants submit joint lists, and it proceeds same as DA but couples are processed together and thus take two spots every time they propose. If one of the members of the couple is rejected, then both are rejected and they must move to their next joint preference. Note that this algorithm will not perform appropriately in our context because families do not report joint preferences. As a result, list are short, and thus families will most likely not get assigned.
+          \item
+        \end{itemize}

@@ -1,0 +1,122 @@
+\begin{thebibliography}{24}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+
+\bibitem[{Abdulkadiro{\u{g}}lu et~al.(2005{\natexlab{a}})Abdulkadiro{\u{g}}lu,
+  Pathak, \protect\BIBand{} Roth}]{abdulkadirouglu2005new}
+Abdulkadiro{\u{g}}lu A, Pathak PA, Roth AE (2005{\natexlab{a}}) The new york
+  city high school match. \emph{American Economic Review} 95(2):364--367.
+
+\bibitem[{Abdulkadiro{\u{g}}lu et~al.(2005{\natexlab{b}})Abdulkadiro{\u{g}}lu,
+  Pathak, Roth, \protect\BIBand{} S{\"o}nmez}]{abdulkadirouglu2005boston}
+Abdulkadiro{\u{g}}lu A, Pathak PA, Roth AE, S{\"o}nmez T (2005{\natexlab{b}})
+  The boston public school match. \emph{American Economic Review}
+  95(2):368--371.
+
+\bibitem[{Abdulkadiro{\u{g}}lu \protect\BIBand{}
+  S{\"o}nmez(2003)}]{Abdulkadiroglu2003}
+Abdulkadiro{\u{g}}lu A, S{\"o}nmez T (2003) School choice: A mechanism design
+  approach. \emph{American Economic Review} 93(3):729--747.
+
+\bibitem[{{\'A}goston et~al.(2021){\'A}goston, Bir{\'o}, Kov{\'a}ts,
+  \protect\BIBand{} Jank}]{agoston_etal2021}
+{\'A}goston KC, Bir{\'o} P, Kov{\'a}ts E, Jank Z (2021) College admissions with
+  ties and common quotas: Integer programming approach. \emph{European Journal
+  of Operational Research} ISSN 0377-2217.
+
+\bibitem[{{\'A}goston et~al.(2016){\'A}goston, Bir{\'o}, \protect\BIBand{}
+  McBride}]{agoston2016integer}
+{\'A}goston KC, Bir{\'o} P, McBride I (2016) Integer programming methods for
+  special college admissions problems. \emph{Journal of Combinatorial
+  Optimization} 32(4):1371--1399.
+
+\bibitem[{Arnosti(2015)}]{Arnosti_2015}
+Arnosti N (2015) Short lists in centralized clearinghouses. \emph{Proceedings
+  of the Sixteenth {ACM} Conference on Economics and Computation} ({ACM}).
+
+\bibitem[{Ashlagi et~al.(2019)Ashlagi, Nikzad, \protect\BIBand{}
+  Romm}]{Ashlagi_2019}
+Ashlagi I, Nikzad A, Romm A (2019) Assigning more students to their top
+  choices: A comparison of tie-breaking rules. \emph{Games and Economic
+  Behavior} 115:167--187.
+
+\bibitem[{Ashlagi \protect\BIBand{} Shi(2016)}]{Ashlagi_2016}
+Ashlagi I, Shi P (2016) Optimal allocation without money: An engineering
+  approach. \emph{Management Science} 62(4):1078--1097.
+
+\bibitem[{Ba{\"\i}ou \protect\BIBand{} Balinski(2000)}]{baiou2000stable}
+Ba{\"\i}ou M, Balinski M (2000) The stable admissions polytope.
+  \emph{Mathematical programming} 87(3):427--439.
+
+\bibitem[{Bobbio et~al.(2022)Bobbio, Carvalho, Lodi, Rios, \protect\BIBand{}
+  Torrico}]{bobbio22}
+Bobbio F, Carvalho M, Lodi A, Rios I, Torrico A (2022) Capacity planning under
+  stability: An application to school choice.
+
+\bibitem[{Bodoh-Creed(2020)}]{bodon2020}
+Bodoh-Creed AL (2020) Optimizing for distributional goals in school choice
+  problems. \emph{Management Science} 66(8):3657--3676.
+
+\bibitem[{Calsamiglia \protect\BIBand{}
+  G{\"u}ell(2018)}]{calsamiglia2014illusion}
+Calsamiglia C, G{\"u}ell M (2018) Priorities in school choice: The case of the
+  boston mechanism in barcelona. \emph{Journal of Public Economics} 163:20--36.
+
+\bibitem[{Correa et~al.(2022)Correa, Epstein, Epstein, Escobar, Rios, Aramayo,
+  Bahamondes, Bonet, Castillo, Cristi, Epstein, \protect\BIBand{}
+  Subiabre}]{Correa_2022}
+Correa J, Epstein N, Epstein R, Escobar J, Rios I, Aramayo N, Bahamondes B,
+  Bonet C, Castillo M, Cristi A, Epstein B, Subiabre F (2022) School choice in
+  chile. \emph{Operations Research} 70(2):1066--1087.
+
+\bibitem[{Delorme et~al.(2019)Delorme, Garc{\'\i}a, Gondzio, Kalcsics, Manlove,
+  \protect\BIBand{} Pettersson}]{delorme2019mathematical}
+Delorme M, Garc{\'\i}a S, Gondzio J, Kalcsics J, Manlove D, Pettersson W (2019)
+  Mathematical models for stable matching problems with ties and incomplete
+  lists. \emph{European Journal of Operational Research} 277(2):426--441.
+
+\bibitem[{Dur et~al.(2022)Dur, Morrill, \protect\BIBand{} Phan}]{Dur_2022}
+Dur U, Morrill T, Phan W (2022) Family ties: School assignment with siblings.
+  \emph{Theoretical Economics} 17(1):89--120.
+
+\bibitem[{Dur \protect\BIBand{} Wiseman(2019)}]{Dur_2019}
+Dur UM, Wiseman T (2019) School choice with neighbors. \emph{Journal of
+  Mathematical Economics} 83:101--109.
+
+\bibitem[{Gale \protect\BIBand{} Shapley(1962)}]{gale1962college}
+Gale D, Shapley LS (1962) College admissions and the stability of marriage.
+  \emph{The American Mathematical Monthly} 69(1):9--15.
+
+\bibitem[{Gusfield \protect\BIBand{} Irving(1989)}]{gusfield1989stable}
+Gusfield D, Irving RW (1989) \emph{The stable marriage problem: structure and
+  algorithms} (MIT press).
+
+\bibitem[{Kwanashie \protect\BIBand{} Manlove(2014)}]{kwanashie2014integer}
+Kwanashie A, Manlove DF (2014) An integer programming approach to the
+  hospitals/residents problem with ties. \emph{Operations research proceedings
+  2013}, 263--269 (Springer).
+
+\bibitem[{Roth(2002)}]{roth02}
+Roth AE (2002) The economist as engineer: Game theory, experimentation, and
+  computation as tools for design economics. \emph{Econometrica}
+  70(4):1341--1378.
+
+\bibitem[{Roth et~al.(1993)Roth, Rothblum, \protect\BIBand{}
+  Vande~Vate}]{roth1993stable}
+Roth AE, Rothblum UG, Vande~Vate JH (1993) Stable matchings, optimal
+  assignments, and linear programming. \emph{Mathematics of operations
+  research} 18(4):803--828.
+
+\bibitem[{Rothblum(1992)}]{rothblum1992characterization}
+Rothblum UG (1992) Characterization of stable matchings as extreme points of a
+  polytope. \emph{Mathematical Programming} 54(1):57--67.
+
+\bibitem[{Shi(2016)}]{shi2016}
+Shi P (2016) Assortment planning in school choice.
+
+\bibitem[{Vate(1989)}]{vate1989linear}
+Vate JHV (1989) Linear programming brings marital bliss. \emph{Operations
+  Research Letters} 8(3):147--153.
+
+\end{thebibliography}

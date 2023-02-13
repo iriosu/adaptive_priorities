@@ -1,0 +1,44 @@
+%!TEX root = ./0_main.tex
+\section{Introduction}
+
+
+The theory of two-sided many-to-one matching markets, introduced by~\cite{gale1962college}, provides a framework for solving many large-scale real-life assignment problems. Examples include entry-level labor markets for doctors and teachers, education markets from daycare, school choice and college admissions, and other applications such as refugee resettlement. A common feature in many of these markets is the use of mechanisms that find a stable assignment, as this guarantees that no coalition of agents has incentives to circumvent the match.
+
+In many of these markets, the clearinghouse may be interested in finding a stable allocation, and individual agents care about their assignment and that of other agents. In the hospital-resident problem, couples jointly participate and must coordinate to find two positions that complement each other. In school choice, students may prefer to be assigned with their siblings or neighbors. In refugee resettlement, agencies may prioritize allocating families with similar backgrounds (e.g., from the same region or speaking the same language) to the same cities. One approach to accommodate these joint preferences is to provide priorities contingent on the assignment. For example, many school choice systems (including NYC, New Haven, Denver, Chile, etc.) consider \emph{sibling priorities}, by which students get prioritized in schools where they have a sibling currently assigned or enrolled. In refugee resettlement, families may get higher priority in localities where they have relatives based on \emph{family reunification}. As a result, priorities may not be fixed and may depend on the current assignment. We refer to these as \emph{dynamic priorities}.
+
+In this paper, we study the problem of finding a stable matching under \emph{dynamic priorities}, using school choice with siblings as a motivating example. To accomplish this, we first introduce a stylized model where students belong to (potentially different) grade levels and get higher priority in a given school if they have a sibling assigned to it. We show that approaches used in practice, such as sequentially solving the assignment for each grade level and updating priorities, can lead to suboptimal results. Moreover, we show that the problem of finding the maximum cardinality stable assignment under \emph{dynamic priorities} is NP-hard.
+Given these results, we focus on deriving exact and near-optimal approaches to solve the problem. Specifically, we provide two exact formulations of the problem, and we introduce several heuristics to efficiently obtain near-optimal solutions. Finally, using data from the Chilean school choice system, we show that our framework can significantly increase the welfare of students by assigning more students with their siblings and increasing the overall number of students assigned.
+
+\subsection{Contributions}
+Our paper contributes to the literature in many dimensions:
+
+\paragraph{Problem formulation.} In this area:
+\begin{itemize}
+  \item Identify issues with current practice: arbitrary preferences and priorities impact number of students assigned.
+  \item Propose a model that captures main elements problems in practice, including dynamic priorities (e.g., siblings).
+  \item Show that problem is hard.
+\end{itemize}
+
+\paragraph{Stability concept.} In this area:
+\begin{itemize}
+  \item Introduce two notions of stability: dependent and independent.
+  \item Show existence
+  \item Strategy-proofness
+\end{itemize}
+
+\paragraph{Mathematical programming approach.} In this area:
+\begin{itemize}
+  \item Propose integer programming formulation to address the problem.
+  \item Show correctness
+  \item Show that different goals (maximal use of reservations, maximize size of match) can be achieved by modifying the objective.
+  \item Propose algorithm to reduce size of instance
+  \item Heuristics
+\end{itemize}
+
+\paragraph{Application and impact.} In this area:
+\begin{itemize}
+  \item Apply our framework to Chile.
+  \item Show that the welfare of students can be significantly increase with our approach.
+\end{itemize}
+
+The remainder of this paper is organized as follows. In Section~\ref{sec: literature} we discuss the relevant literature. In Section~\ref{sec: model} we introduce our model. In Sections~\ref{sec: exact} we study exact formulations of the problem. In Section~\ref{sec: heuristics} we describe heuristics to reduce the size of the problem and obtain near-optimal solutions in a relatively short time. In Section~\ref{sec: experiments} we adapt our framework to the Chilean school choice problem and show its potential benefits compared to the current practice. Finally, in Section~\ref{sec: conclusions} we conclude.

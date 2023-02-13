@@ -1,0 +1,253 @@
+
+%!TEX spellcheck = en-US
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Author template for Management Science (mnsc) for articles with no e-companion (EC)
+%% Mirko Janc, Ph.D., INFORMS, mirko.janc@informs.org
+%% ver. 0.95, December 2010
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[ms]{style/informs3}%,blindrev
+% \documentclass[mnsc,blindrev]{style/informsX}%,blindrev
+%\documentclass[mnsc,nonblindrev]{informs3} % current default for manuscript submission
+
+\OneAndAHalfSpacedXI
+
+\usepackage{natbib}
+ \bibpunct[, ]{(}{)}{,}{a}{}{,}%
+ \def\bibfont{\small}%
+ \def\bibsep{\smallskipamount}%
+ \def\bibhang{24pt}%
+ \def\newblock{\ }%
+ \def\BIBand{and}%
+
+\setlength{\bibsep}{-1pt}
+
+\TheoremsNumberedThrough     % Preferred (Theorem 1, Lemma 1, Theorem 2)
+\ECRepeatTheorems
+\EquationsNumberedThrough    % Default: (1), (2), ...
+
+\MANUSCRIPTNO{}
+
+%%%%%%%%%%%%%
+%SPECIAL PACKAGES and COMMANDS
+%%%%%%%%%%%%%
+\usepackage{booktabs}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage[autostyle]{csquotes}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{dcolumn}
+\usepackage{hyperref}
+\usepackage{makecell}
+\usepackage{subcaption}
+\usepackage{mathrsfs,amsmath}
+\usepackage{algorithm} %[plain]
+\usepackage[noend]{algorithmic}
+\newlength\myindent
+\setlength\myindent{2em}
+\newcommand\bindent{%
+  \begingroup
+  \setlength{\itemindent}{\myindent}
+  \addtolength{\algorithmicindent}{\myindent}
+}
+\newcommand\eindent{\endgroup}
+
+% \usepackage{amsmath}
+% \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\makeatletter
+\def\munderbar#1{\underline{\sbox\tw@{$#1$}\dp\tw@\z@\box\tw@}}
+\makeatother
+
+\usepackage{tikz}
+% \usepackage{graphicx}
+\usepackage[all]{xy}
+\usetikzlibrary{decorations.pathmorphing} % noisy shapes
+\usetikzlibrary{fit}					% fitting shapes to coordinates
+\usetikzlibrary{backgrounds}	% drawing the background after the foreground
+\usetikzlibrary{tikzmark,decorations.pathreplacing,calligraphy}
+
+\usepackage{pgfplots}
+\pgfplotsset{width=15cm,height=8cm}
+\usepgfplotslibrary{fillbetween}
+
+%%%> colors
+\definecolor{myblue}{RGB}{51,51,178}
+\definecolor{myred}{RGB}{178,51,51}
+\definecolor{myblack}{RGB}{0,0,0}
+\definecolor{mygreen}{RGB}{0,128,0}
+\definecolor{mygray}{gray}{0.6}
+
+%\newcommand{\dani}[1]{{\color{red}\textbf{[D:#1]}}}
+\newcommand{\nacho}[1]{{\color{mygreen}[#1]}}
+\newcommand{\av}[1]{{\color{myblue}[#1]}}
+
+% delimiters
+\usepackage{mathtools}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\newcommand{\lrp}[1]{\left(#1\right)}
+\newcommand{\lrcp}[1]{\left[#1\right)}
+\newcommand{\lrpc}[1]{\left(#1\right]}
+\newcommand{\lrc}[1]{\left[#1\right]}
+\newcommand{\lrl}[1]{\left\{#1\right\}}
+\newcommand{\lra}[1]{\left|#1\right|}
+\newcommand{\lrn}[1]{\left\lVert#1\right\rVert}
+\newcommand{\lran}[1]{\langle #1 \rangle}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\E}{\mathbb{E}}
+
+
+\newcommand{\ind}[1]{\mathbbm{1}_{\lrl{#1}}}
+\newcommand{\indicator}[1]{\mathbbm{1}\lrl{#1}}
+
+\newcommand{\prob}[1]{\textup{P}\lrp{#1}}
+\newcommand{\piecewise}[1]{\left\{\begin{array}{ll} #1 \end{array}\right.}
+
+
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\cZ}{\mathcal{Z}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cL}{\mathcal{L}}
+
+\newcommand{\bA}{\bar{A}}
+\newcommand{\bB}{\bar{B}}
+\newcommand{\bC}{\bar{C}}
+\newcommand{\bD}{\bar{D}}
+\newcommand{\bM}{\bar{M}}
+\newcommand{\bT}{\bar{T}}
+\newcommand{\bX}{\bar{X}}
+\newcommand{\bS}{\bar{S}}
+\newcommand{\bP}{\bar{P}}
+\newcommand{\bQ}{\bar{Q}}
+\newcommand{\bR}{\bar{R}}
+
+\newcommand{\bdC}{\mathbf{C}}
+\newcommand{\bdS}{\mathbf{S}}
+\newcommand{\bdR}{\mathbf{R}}
+
+\newcommand{\bcK}{\overline{\mathcal{K}}}
+
+\newcommand{\tA}{\tilde{A}}
+\newcommand{\tb}{\tilde{b}}
+\newcommand{\tB}{\tilde{B}}
+
+
+\newcommand{\sym}[1]{{#1}}
+
+
+\newtheorem{result}{Result}[section]
+
+%%%%%%%%%%%%%%%%
+%%%%NOTATION%%%%
+%%%%%%%%%%%%%%%%
+
+
+\usepackage{url}
+\newcommand{\update}[1]{{\color{myred}\textbf{#1}}}
+\newcommand{\del}[1]{{\color{green}{delete: #1}}}
+
+
+
+%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%
+
+% Outcomment only when entries are known. Otherwise leave as is and
+%   default values will be used.
+%\setcounter{page}{1}
+%\VOLUME{00}%
+%\NO{0}%
+%\MONTH{Xxxxx}% (month or a similar seasonal id)
+%\YEAR{0000}% e.g., 2005
+%\FIRSTPAGE{000}%
+%\LASTPAGE{000}%
+%\SHORTYEAR{00}% shortened year (two-digit)
+%\ISSUE{0000} %
+%\LONGFIRSTPAGE{0001} %
+%\DOI{10.1287/xxxx.0000.0000}%
+
+\RUNTITLE{Stable Matching with Dynamic Priorities}
+
+\TITLE{Stable Matching with Dynamic Priorities}
+
+\ARTICLEAUTHORS{%
+\AUTHOR{Ignacio Rios}
+\AFF{Naveen Jindal School of Management, University of Texas at Dallas, \EMAIL{ignacio.riosuribe@utdallas.edu} } %,\URL{https://iriosu.github.io/} }
+%\EMAIL{iriosu@stanford.edu} %, \URL{}}
+% Enter all authors
+%\vspace*{0.5cm}
+%\AUTHOR{{\large Preliminary and Incomplete: please do not circulate.}}
+} % end of the block
+
+\ABSTRACT{
+  In many matching markets, agents may get prioritized depending on the assignment of other agents. Examples include (i) school choice, where students get prioritized if one of their siblings is assigned to a school; (ii) refugee resettlement, where the clearinghouse prioritizes the assignment of refugees with similar backgrounds (e.g., language) to the same cities; and (iii) the hospital-resident problem, where members of a couple may get prioritized depending on the assignment of their partner. In all these cases, priorities are dynamic and depend on the allocation. This paper introduces the problem of finding a student-optimal stable matching under dynamic priorities. We show that the problem is NP-hard, and we provide two integer programming formulations for the problem. Given the potentially high computational time to solve these formulations, we introduce several heuristics to preprocess the instances and solve them. Finally, we show that clearinghouses can significantly improve students' welfare when considering dynamic priorities using synthetic and real data from the Chilean school choice system.
+}
+%
+\KEYWORDS{stable matching, many-to-one matching, school choice, integer programming.}
+
+
+
+% ======================
+% MAIN PAPER
+% ======================
+\maketitle
+
+\input{1_introduction}
+
+\input{2_literature}
+
+\input{3_model}
+
+\input{4_exact}
+
+\input{5_heuristics}
+
+\input{6_experiments}
+
+\input{7_conclusions}
+
+\bibliographystyle{style/informs2014}
+% {\tiny \bibliography{draft.bib}} % if more than one, comma separated
+\bibliography{bibliography.bib} % if more than one, comma separated
+
+\ACKNOWLEDGMENT{Potential feedback: Peng Shi, Nick Arnosti, Faidra Monachou, Nikhil Garg, Itai Ashlagi, Alf + Polytechnique Montreal, Rakesh Vohra}
+
+
+
+
+
+
+
+\clearpage
+\input{9_appendix}
+
+
+
+
+
+
+
+
+
+
+\end{document}

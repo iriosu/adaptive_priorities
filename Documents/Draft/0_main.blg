@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2019)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: 0_main.aux
+The style file: style/informs2014.bst
+Database file #1: bibliography.bib
+Warning--I didn't find a database entry for "gautier2016eerste"
+Warning--empty note in shi2016
+You've used 24 entries,
+            2869 wiz_defined-function locations,
+            756 strings with 8738 characters,
+and the built_in function-call counts, 24592 in all, are:
+= -- 2559
+> -- 612
+< -- 14
++ -- 241
+- -- 205
+* -- 1811
+:= -- 3007
+add.period$ -- 45
+call.type$ -- 24
+change.case$ -- 187
+chr.to.int$ -- 25
+cite$ -- 25
+duplicate$ -- 2463
+empty$ -- 1898
+format.name$ -- 280
+if$ -- 5030
+int.to.chr$ -- 2
+int.to.str$ -- 1
+missing$ -- 247
+newline$ -- 78
+num.names$ -- 96
+pop$ -- 1186
+preamble$ -- 1
+purify$ -- 164
+quote$ -- 0
+skip$ -- 402
+stack$ -- 0
+substring$ -- 2749
+swap$ -- 583
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 213
+warning$ -- 1
+while$ -- 178
+width$ -- 0
+write$ -- 265
+(There were 2 warnings)

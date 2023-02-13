@@ -1,0 +1,83 @@
+%!TEX root = ./0_main.tex
+%!TEX spellcheck = en-US
+\begin{APPENDICES}
+
+\section{Additional Results}\label{app: additional results}
+
+    \begin{theorem}\label{thm: no stable matching}
+      A stable matching may not exist under dynamic preferences, even in the case where families independent.
+    \end{theorem}
+    \begin{proof}{Proof.}
+      Consider an instance with two families, \(f = \lrl{f_1,f_2}\) and \(f'=\lrl{f_1', f_2'}\), two schools \(\lrl{c_1, c_2}\) with two grades \(G = \lrl{g_1, g_2}\), and suppose that each school offers one seat in each grade. We assume that \(g_1\) is the lower grade, and \(g_2\) the higher grade, and we assume that the subindex in the members of each family represents the grade to which they are applying. Finally, the preferences and initial priorities are:
+      \begin{equation}
+        \begin{aligned}
+          \succ_i & : c_1 \succ_i c_2, \quad \forall i\in f\cup f' \\
+          \succ_{c_1}^{g_1}&: f_1 \succ_{c_1}^{g_1} f_1' \\
+          \succ_{c_1}^{g_2}&: f_2' \succ_{c_1}^{g_2} f_2 \\
+          \succ_{c_2}^g &: f_g' \succ_{c_2}^g f_g, \quad \forall g \in \lrl{g_1, g_2}
+        \end{aligned}
+      \end{equation}
+      There are two possible allocations:
+      \begin{itemize}
+        \item if \(\mu(f_1) = c_1\), then \(f_2\) gets dynamic priority, and thus \(\mu(f_2) = c_1\). However, student \(f_2'\) has justified envy in school \((c_2)\) given the initial preferences.
+        \item if \(\mu(f_2') = c_1\), then \(f_1'\) gets dynamic priority, and thus \(\mu(f_1') = c_1\). However, student \(f_1\) has justified envy in school \((c_2)\) given the initial preferences.
+      \end{itemize}
+      As a result, we observe that there is no envy-free stable assignment.
+    \end{proof}
+
+% \section{Quotas}\label{sec: quotas}
+%
+%     \begin{proposition}
+%       Maximum compliance with reservations does not guarantee maximum cardinality of the match under ex-post stability.
+%     \end{proposition}
+%
+%     \begin{proof}{Proof.}
+%       Consider a market with \(I = \lrl{i_1, \ldots, i_4}\), \(J = \lrl{c_1, c_2}\), \(T=\lrl{d,h}\), \(q_{c_1}=3\), \(q_{c_1,h} = q_{c_1,d} = 1\), \(q_{c_2} = 1\), and \(q_{c_2, t} = 0\).
+%       In addition, suppose that \(\tau(i_1) = \emptyset, \; \tau(i_2) = \lrl{h,d}, \; \tau(i_3) = \lrl{h}, \; \tau(i_4) = \lrl{d}\), that all students prefer \(c_1\) over \(c_2\), and that schools priorities are:
+%       \begin{equation}
+%         \begin{aligned}
+%           \succ_{c_1, \emptyset}&: i_1, i_2, i_3, i_4 \\
+%           \succ_{c_1, h}&: i_2, i_3, i_1, i_4 \\
+%           \succ_{c_1, d}&: i_2, i_4, i_1, i_3 \\
+%           \succ_{c_2, \emptyset}&: i_1, i_2, i_3, i_4 \\
+%         \end{aligned}
+%       \end{equation}
+%       Then, following the horizontal envelope choice rule we obtain the assignment \(\mu = \lrl{(i_1, s_1), (i_2, c_1), (i_3, c_1), (i_4, \emptyset)}\). In contrast, using the Chilean mechanism (which assumes that all students prefer \(d\) over \(h\) and then open seats at any given school), we obtain the assignment \(\mu' = \lrl{(i_1, s_1), (i_2, c_1), (i_3, c_2), (i_4, c_1)}\), and thus we obtain an assignment that is ex-post stable and matches strictly more students than the assignment satisfying maximum compliance with reservations.
+%     \end{proof}
+%
+%
+%     \begin{problem}\label{problem_def with quotas}
+%     Given an instance $\Gamma$, the \emph{maximum stable-matching with quotas} is the following:
+%     \begin{equation*}
+%     \min_{\mu} \Bigg\{ \sum_{j\in J} \lra{\mu(j)} \; : \;  \mu \text{ is a ex-post student-optimal stable matching }
+%      \Bigg\}.
+%     \end{equation*}
+%     \end{problem}
+%
+%     \begin{claim}
+%       The problem of finding the \emph{maximum stable-matching with quotas} is NP-hard.
+%     \end{claim}
+%
+%
+%     \subsection{Formulation}
+%
+%         \begin{equation}\label{eq: formulation of problem with quotas}
+%           \begin{aligned}
+%             \min \quad & \quad \sum_{(i.j) \in I\times J, t\in T} x_{i,j,t}\cdot r_{i,j} + [\text{penalty for unassigned}] + [\text{penalty for traits}] \\
+%             st. \quad & \quad \sum_{j\in J, t\in T} x_{i,j,t} \leq 1, \; \forall i\in I \\
+%             & \quad \sum_{i\in I} x_{i,j,t} \leq q_{c,t}, \; \forall j\in J, \; t\in T \\
+%             & \quad z_{j,t} \leq (1-x_{i,j,t})\cdot \lrp{\bar{s}+1} + s_{i.j,t},\; \forall i\in I,; j\in J,\; t\in T \\
+%             & \quad s_{ijt}+\epsilon \leq z_{j,t} + \lrp{\sum_{k \succeq_i j, \; t\in T}x_{i,k,t}}\lrp{\bar{s}+1},\; \forall i\in I,; j\in J,\; t\in T \\
+%             & \quad x_{i,j,t}\in \lrl{0,1}, \; i\in I, \; j\in J, \; t\in T \\
+%             & \quad z_{j,t} \in [0,1], \; j\in J, \; t\in T \\
+%           \end{aligned}
+%         \end{equation}
+%
+%
+%         \begin{theorem}
+%           The formulation in~(\ref{eq: formulation of problem with quotas}) solves Problem~\ref{problem_def with quotas}.
+%         \end{theorem}
+
+
+
+\end{APPENDICES}
