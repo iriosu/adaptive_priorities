@@ -1,13 +1,13 @@
 # Fdb version 3
-["bibtex 0_main"] 1660775242 "0_main.aux" "0_main.bbl" "0_main" 1676304192
+["bibtex 0_main"] 1676311920 "0_main.aux" "0_main.bbl" "0_main" 1676311923
   "./style/informs2014.bst" 1399921950 31531 d97542694488531b96817300595ca45b ""
-  "0_main.aux" 1676303980 10450 f7fff9839c4d5cf8c0bc7a15010458ca "pdflatex"
+  "0_main.aux" 1676311923 10450 1b7cd7f0ff9b5f6b7fa950ba6f75163e "pdflatex"
   "bibliography.bib" 1652742214 36151 02c56bf2a3b2a67d9623d1acb41e01a5 ""
   (generated)
-  "0_main.bbl"
   "0_main.blg"
-["pdflatex"] 1676303971 "/Users/IgnacioRios/Dropbox/Adaptive priorities in stable matching/Documents/Draft/0_main.tex" "/Users/IgnacioRios/Dropbox/Adaptive priorities in stable matching/Documents/Draft/0_main.pdf" "0_main" 1676304192
-  "/Users/IgnacioRios/Dropbox/Adaptive priorities in stable matching/Documents/Draft/0_main.aux" 1676303980 10450 f7fff9839c4d5cf8c0bc7a15010458ca ""
+  "0_main.bbl"
+["pdflatex"] 1676311921 "/Users/IgnacioRios/Dropbox/Adaptive priorities in stable matching/Documents/Draft/0_main.tex" "/Users/IgnacioRios/Dropbox/Adaptive priorities in stable matching/Documents/Draft/0_main.pdf" "0_main" 1676311923
+  "/Users/IgnacioRios/Dropbox/Adaptive priorities in stable matching/Documents/Draft/0_main.aux" 1676311923 10450 1b7cd7f0ff9b5f6b7fa950ba6f75163e ""
   "/Users/IgnacioRios/Dropbox/Adaptive priorities in stable matching/Documents/Draft/0_main.tex" 1676304008 7257 991214740d7f02a34ebc26c4b1f420f0 ""
   "/Users/IgnacioRios/Library/texlive/2020/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.600pk" 1597945030 6964 6a11c0a4bc4e804e24fafc2b9267adb2 ""
   "/Users/IgnacioRios/Library/texlive/2020/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk" 1597945032 7808 b71d72e6de85af687d2d587280c8a5b6 ""
@@ -325,14 +325,14 @@
   "/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1586288239 4811913 0be9a7e86c70a26e5e3042966bcd7097 ""
   "/usr/local/texlive/2020/texmf-var/web2c/pdftex/pdflatex.fmt" 1586288259 2432462 fd0fa20e9a3cb5f8169fd0ba1c955158 ""
   "/usr/local/texlive/2020/texmf.cnf" 1586288231 577 d60164b4589a341208aff7a667fbbdcb ""
-  "0_main.aux" 1676303980 10450 f7fff9839c4d5cf8c0bc7a15010458ca "pdflatex"
-  "0_main.bbl" 1654811156 5708 4639b62a8c91b2006539c41a465ad1ec "bibtex 0_main"
-  "0_main.out" 1676303980 1471 6dd22f53cf1c0c0d01819d12ea386221 "pdflatex"
+  "0_main.aux" 1676311923 10450 1b7cd7f0ff9b5f6b7fa950ba6f75163e "pdflatex"
+  "0_main.bbl" 1676311921 5708 4639b62a8c91b2006539c41a465ad1ec "bibtex 0_main"
+  "0_main.out" 1676311923 1471 6dd22f53cf1c0c0d01819d12ea386221 "pdflatex"
   "0_main.tex" 1676304008 7257 991214740d7f02a34ebc26c4b1f420f0 ""
   "1_introduction.tex" 1663950649 4760 8a23f37894e459da8ea501cf7a2f8c4c ""
   "2_literature.tex" 1652810950 1617 a35578b94dda17b43d397ffdd23fe08d ""
   "3_model.tex" 1663950986 22387 ef212935a2b5d59d0915ae07c8041ef4 ""
-  "4_exact.tex" 1660605022 29986 30bb037b535f3d39fbeceb414f3fbce0 ""
+  "4_exact.tex" 1676311910 30023 6ff8cce79ef5462596211827425c859c ""
   "5_heuristics.tex" 1660660861 4984 d0ebb5d4d78a2d0bfbd8404e9270fbcc ""
   "6_experiments.tex" 1652803830 300 3903ea7f79137caa0c2865bcba05987d ""
   "7_conclusions.tex" 1652298883 73 a41aedb4e5b074e75b82ec559dce674a ""
@@ -341,7 +341,7 @@
   (generated)
   "/Users/IgnacioRios/Dropbox/Adaptive priorities in stable matching/Documents/Draft/0_main.pdf"
   "0_main.out"
-  "0_main.aux"
-  "0_main.pdf"
   "/Users/IgnacioRios/Dropbox/Adaptive priorities in stable matching/Documents/Draft/0_main.log"
   "0_main.log"
+  "0_main.pdf"
+  "0_main.aux"

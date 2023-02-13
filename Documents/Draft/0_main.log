@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  13 FEB 2023 09:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  13 FEB 2023 12:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -916,42 +916,42 @@ Package natbib Warning: Citation `gautier2016eerste' on page 3 undefined on inpu
 ) (/Users/IgnacioRios/Dropbox/Adaptive priorities in stable matching/Documents/Draft/3_model.tex [3] [4] [5] [6] [7]) (/Users/IgnacioRios/Dropbox/Adaptive priorities in stable matching/Documents/Draft/4_exact.tex [8]
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <6.5> not available
-(Font)              size <6> substituted on input line 59.
+(Font)              size <6> substituted on input line 61.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <6.5> not available
-(Font)              size <6> substituted on input line 59.
+(Font)              size <6> substituted on input line 61.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <6.5> not available
-(Font)              size <6> substituted on input line 59.
+(Font)              size <6> substituted on input line 61.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/b/it' in size <6.5> not available
-(Font)              size <6> substituted on input line 59.
+(Font)              size <6> substituted on input line 61.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/b/n' in size <6.5> not available
-(Font)              size <6> substituted on input line 59.
+(Font)              size <6> substituted on input line 61.
 
 
 LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <6.5> not available
-(Font)              size <6> substituted on input line 59.
+(Font)              size <6> substituted on input line 61.
 
-LaTeX Font Info:    Trying to load font information for U+bbm on input line 68.
+LaTeX Font Info:    Trying to load font information for U+bbm on input line 70.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/bbm-macros/ubbm.fd
 File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
 )
 
 LaTeX Font Warning: Font shape `U/bbm/m/n' in size <6.5> not available
-(Font)              size <6> substituted on input line 68.
+(Font)              size <6> substituted on input line 70.
 
 [9]
 
-LaTeX Warning: Reference `eq: tie breaking among dynamic priorities for independent' on page 10 undefined on input line 74.
+LaTeX Warning: Reference `eq: tie breaking among dynamic priorities for independent' on page 10 undefined on input line 76.
 
 [10] [11]
-Overfull \hbox (54.50627pt too wide) detected at line 122
+Overfull \hbox (54.50627pt too wide) detected at line 124
 [] \OML/cmm/m/it/11 r[] \OT1/cmr/m/n/11 = [] \OML/cmm/m/it/11 x[] \OMS/cmsy/m/n/10.95 ^^A \OML/cmm/m/it/11 r[] \OT1/cmr/m/n/11 + \OML/cmm/m/it/11 r[] [] < [] x[] \OMS/cmsy/m/n/10.95 ^^A \OML/cmm/m/it/11 r[] \OT1/cmr/m/n/11 + \OML/cmm/m/it/11 r[] [] \OT1/cmr/m/n/11 = [] \OML/cmm/m/it/11 x[] \OMS/cmsy/m/n/10.95 ^^A \OML/cmm/m/it/11 r[] \OT1/cmr/m/n/11 + \OML/cmm/m/it/11 r[] [] \OT1/cmr/m/n/11 = [] \OML/cmm/m/it/11 x[] \OMS/cmsy/m/n/10.95 ^^A \OML/cmm/m/it/11 r[];
  []
 
@@ -991,7 +991,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  63i,22n,98p,3357b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc} </Users/IgnacioRios/Library/texlive/2020/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk> </Users/IgnacioRios/Library/texlive/2020/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.600pk></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on "/Users/IgnacioRios/Dropbox/Adaptive priorities in stable matching/Documents/Draft/0_main.pdf" (17 pages, 384155 bytes).
+Output written on "/Users/IgnacioRios/Dropbox/Adaptive priorities in stable matching/Documents/Draft/0_main.pdf" (17 pages, 384171 bytes).
 PDF statistics:
  555 PDF objects out of 1000 (max. 8388607)
  498 compressed objects within 5 object streams

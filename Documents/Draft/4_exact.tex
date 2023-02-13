@@ -1,6 +1,8 @@
 %!TEX root = ./0_main.tex
 \section{Exact Formulations} \label{sec: exact}
 
+    \nacho{I'm working on this now}
+
     Let \(x_{s,c}\) be a binary variable equal to 1 if the clearinghouse assigns student \(s \in \cS\) to school \(c \in \cC \cup \lrl{\emptyset}\), and 0 otherwise. Then, the set of matchings can be represented as
     \[
     \cP = \lrl{\mathbf{x} \in \lrl{0,1}^{\cV} \;:\; \text{for each } g\in \cG, \; \sum_{c: (s,c) \in \cV^{g}} x_{s,c} = 1 \text{ for all } s\in \cS, \; \sum_{s: (s,c) \in \cV^{g}} x_{s,c} \leq q_{c,g} \text{ for all } c\in \cC}.
